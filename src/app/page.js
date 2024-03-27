@@ -5,6 +5,7 @@ export default function Home() {
 		<main className="bg-gradient-to-r from-cyan-500 to-blue-500">
 			<h1>Hello World</h1>
 			<h2>Test</h2>
+			<h3>WOI</h3>
 		</main>
 	);
 }
