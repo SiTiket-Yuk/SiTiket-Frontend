@@ -2,6 +2,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "@/components/NavigationBar";
 import FooterBar from "@/components/FooterBar";
+import { Providers } from "./providers";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -19,9 +20,11 @@ const RootLayout = ({ children }) => {
 	return (
 		<html lang="en">
 			<body className={dmSans.className}>
-				<NavigationBar />
-				{children}
-				<FooterBar />
+				<Providers>
+					<NavigationBar />
+					{children}
+					<FooterBar />
+				</Providers>
 			</body>
 		</html>
 	);
