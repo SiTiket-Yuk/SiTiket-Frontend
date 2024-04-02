@@ -1,8 +1,12 @@
+import EventsFeaturedList from "@/components/EventsFeaturedList";
+import EventsOverview from "@/components/EventsOverview";
+
 const LandingPage = () => {
 	return (
-		<div>
-			<div></div>
-		</div>
+		<>
+			<EventsOverview />
+			<EventsFeaturedList />
+		</>
 	);
 };
 
