@@ -1,4 +1,4 @@
-import LandingPage from "./LandingPage/page";
+import LandingPage from "./landingpage/page";
 
 const Home = () => {
 	return (
