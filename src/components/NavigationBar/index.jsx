@@ -75,7 +75,7 @@ const AuthenticatedUser = ({ avatar }) => {
 const GuestUser = () => {
 	return (
 		<>
-			<Link href="#">
+			<Link href="/register">
 				<div
 					className="block rounded-full text-white font-bold border-white 
 						border-2 p-3 px-5 over:bg-blue-300 hover:border-blue-100 hover:text-blue-100"
