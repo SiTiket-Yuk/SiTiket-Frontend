@@ -1,12 +1,10 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import OvFestival from "../../../public/ImageEvents/OvFestival.png";
-import OvWorkshop from "../../../public/ImageEvents/OvWorkshop.png";
-import OvWebinar from "../../../public/ImageEvents/OvWebinar.png";
-import OvBisnis from "../../../public/ImageEvents/OvBisnis.png";
-import OvOlahraga from "../../../public/ImageEvents/OvOlahraga.png";
+import OvFestival from "../../../public/imageEvents/OvFestival.png";
+import OvWorkshop from "../../../public/imageEvents/OvWorkshop.png";
+import OvWebinar from "../../../public/imageEvents/OvWebinar.png";
+import OvBisnis from "../../../public/imageEvents/OvBisnis.png";
+import OvOlahraga from "../../../public/imageEvents/OvOlahraga.png";
 
 const EventItem = ({ img, name }) => {
 	return (
