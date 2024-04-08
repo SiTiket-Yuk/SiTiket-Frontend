@@ -1,5 +1,3 @@
-import "../globals.css";
-
 const Login = () => {
 	return;
 };
