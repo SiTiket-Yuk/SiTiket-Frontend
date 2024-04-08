@@ -1,10 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import OvFestival from "../../../public/ImageEvents/OvFestival.png";
-import OvWorkshop from "../../../public/ImageEvents/OvWorkshop.png";
-import OvWebinar from "../../../public/ImageEvents/OvWebinar.png";
-import OvBisnis from "../../../public/ImageEvents/OvBisnis.png";
-import OvOlahraga from "../../../public/ImageEvents/OvOlahraga.png";
 
 const EventItem = ({ img, name }) => {
 	return (
@@ -12,7 +7,14 @@ const EventItem = ({ img, name }) => {
 			className="flex flex-col items-center justify-center
     hover:text-blue hover:cursor-pointer"
 		>
-			<Image className="object-cover w-56 md:h-auto" src={img.src} alt={name} />
+			<Image
+				className="object-cover w-56 md:h-auto"
+				width={0}
+				height={0}
+				sizes="100vw"
+				src={img}
+				alt={name}
+			/>
 			<h1 className="font-medium py-2 text-xl">{name}</h1>
 		</div>
 	);
@@ -21,11 +23,11 @@ const EventItem = ({ img, name }) => {
 const TodayEvents = () => {
 	return (
 		<div className="flex flex-wrap w-1/2 justify-center lg:gap-8 sm:gap-5 pb-20">
-			<EventItem img={OvFestival} name={"Festival"} />
-			<EventItem img={OvWorkshop} name={"Workshop"} />
-			<EventItem img={OvWebinar} name={"Webinar"} />
-			<EventItem img={OvBisnis} name={"Bisnis"} />
-			<EventItem img={OvOlahraga} name={"Olahara"} />
+			<EventItem img={"/ImageEvents/OvFestival.PNG"} name={"Festival"} />
+			<EventItem img={"/ImageEvents/OvWorkshop.PNG"} name={"Workshop"} />
+			<EventItem img={"/ImageEvents/OvWebinar.PNG"} name={"Webinar"} />
+			<EventItem img={"/ImageEvents/OvBisnis.PNG"} name={"Bisnis"} />
+			<EventItem img={"/ImageEvents/OvOlahraga.PNG"} name={"Olahara"} />
 		</div>
 	);
 };
