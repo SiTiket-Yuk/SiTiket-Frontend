@@ -3,6 +3,7 @@ import "./globals.css";
 import NavigationBar from "@/components/NavigationBar";
 import FooterBar from "@/components/FooterBar";
 import { Providers } from "./providers";
+import AvatarDefault from "../../public/imageDefault/AvatarDefault.png";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -17,11 +18,15 @@ export const metadata = {
 };
 
 const RootLayout = ({ children }) => {
+	/*
+	Handle User is authenticated or not in here
+	*/
+
 	return (
 		<html lang="en">
 			<body className={dmSans.className}>
 				<Providers>
-					<NavigationBar />
+					<NavigationBar userIsLoggedIn={true} userAvatar={AvatarDefault} />
 					{children}
 					<FooterBar />
 				</Providers>
