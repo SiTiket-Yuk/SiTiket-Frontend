@@ -4,7 +4,6 @@ import { FaArrowRight } from "react-icons/fa";
 import EventsFeaturedList from "@/components/EventsFeaturedList";
 import EventsOngoingThisWeek from "@/components/EventsOngoingThisWeek";
 import EventsOverview from "@/components/EventsOverview";
-import PostColdiac from "../../../public/imageEventsPoster/PostColdiac.png";
 
 const LandingPage = () => {
 	return (
@@ -12,7 +11,14 @@ const LandingPage = () => {
 			<EventsOverview />
 			<div className="container mx-auto flex flex-col">
 				<EventsFeaturedList />
-				<Image src={PostColdiac} alt={"Event Poster"} />
+				<Image
+					width="0"
+					height="0"
+					sizes="100vw"
+					className="w-full h-auto"
+					src={"/imageEventsPoster/PostColdiac.png"}
+					alt={"Event Poster"}
+				/>
 				<EventsOngoingThisWeek />
 				<Button
 					radius="full"
