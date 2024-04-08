@@ -1,4 +1,4 @@
-import TodayEvents from "../TodayEvents";
+import TodayEvents from "@/components/TodayEvents";
 
 const EventsOverview = () => {
 	return (
