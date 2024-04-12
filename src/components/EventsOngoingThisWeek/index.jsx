@@ -18,7 +18,7 @@ const EventsOngoingThisWeek = () => {
 					organizerName={"Lorem"}
 				/>
 				<EventCard
-					eventImg={EventCardImg}
+					eventImg={EventCardImg}  
 					eventName={"Lorem Ipsum"}
 					date={"04 Agustus 2024"}
 					cost={100000}

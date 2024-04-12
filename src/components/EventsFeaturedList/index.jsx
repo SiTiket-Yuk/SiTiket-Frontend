@@ -1,7 +1,7 @@
-import EventCard from "@/components/EventCard";
+import CardPaymentDetail from "@/components/EventCardPaymentDetail";
 import EventCardImg from "../../../public/imageEvents/EventCardImg.png";
 import LogoBeekind from "../../../public/logo/LogoBeekind.png";
-
+import EventCard from "../EventCard";
 const EventsFeaturedList = () => {
 	return (
 		<article className="flex flex-col mb-10">
