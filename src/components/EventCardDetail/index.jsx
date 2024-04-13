@@ -22,32 +22,32 @@ const CardDetail = ({
 }) => {
 
 	return (
-		<Card className="lg:w-[450px] md:w-[300px] p-7">
+		<Card className="lg:w-[360px] md:w-[150px] p-4">
 			<CardBody>
 				<div>	
-					<p className="font-bold text-xl pt-2 pb-2">{eventName}</p>
+					<p className="font-bold text-base pt-2 pb-2">{eventName}</p>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
-						<CiCalendar size={32} />
-						<p className="text-lg self-center ml-6">{date}</p>
+						<CiCalendar size={25} />
+						<p className="text-sm self-center ml-4">{date}</p>
 					</div>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
-						<CiClock2 size={32} />
-						<p className="text-lg self-center ml-6">{time}</p>
+						<CiClock2 size={25} />
+						<p className="text-sm self-center ml-4">{time}</p>
 					</div>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
-						<CiLocationOn size={32} />
-						<p className="text-lg self-center ml-6">{place}</p>
+						<CiLocationOn size={25} />
+						<p className="text-sm self-center ml-4">{place}</p>
 					</div>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
-						<PiTicketLight size={32} />
-						<p className="text-lg self-center ml-6">{quantity}</p>
+						<PiTicketLight size={25} />
+						<p className="text-sm self-center ml-4">{quantity}</p>
 					</div>
 				</div>
 			</CardBody>
 			<Divider />
 			<CardFooter className="flex gap-4">
-				<Avatar radius="full" size="md" src={organizerLogo.src} />
-				<h4>{organizerName}</h4>
+				<Avatar radius="full" size="sm" src={organizerLogo.src} />
+				<p className="text-sm">{organizerName}</p>
 			</CardFooter>
 		</Card>
 	);

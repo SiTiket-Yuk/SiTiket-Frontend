@@ -1,13 +1,22 @@
 'use client'
 import Image from "next/image";
+import React, { useState } from "react"
 import EventDescription from "@/components/EventDescription";
 import Breadcrumbs from "@/components/BreadcrumbssNav";
 import CategoryBar from "@/components/CategoryBar";
 import CardDetail from "@/components/EventCardDetail";
 import LogoBeekind from "../../../../public/logo/LogoBeekind.png";
-const EventDetail = () => {	
+import CardAddTix from "@/components/EventCardAddTix";
+import CardPrintETicket from "@/components/EventCardPrintEticket";
+const EventDetail = () => {
+
+	// atur state tiket = sudah dimiliki/belum
+	const [ticketOwned, setticketOwned] = useState(false);
+	const handleticketOwned = () => {
+	   setticketOwned(true);
+	};
 	return (
-		<div className="container mx-auto">
+		<div className="container mx-auto max-w-[1100px]">
 			<Breadcrumbs
 				link1={"#"}
 				link2={"#"}
@@ -16,7 +25,7 @@ const EventDetail = () => {
 				pageName2={"Tiket Lalu"}
 				pageName3={"Mengenal Dunia Copy Writing"}
 			/>
-			<div class="flex flex-row gap-10 mb-32">
+			<div class="flex flex-column gap-10 mb-32">
 				<div class="basis-3/4">
 					<div>
 						<Image
@@ -43,9 +52,8 @@ const EventDetail = () => {
 						link2={"#"} category2={"Bisnis"}
 					>
 					</CategoryBar>
-
 				</div>
-				<div class="basis-1/4 ml-8 flex flex-col gap-16">
+				<div class="ml-8 flex flex-col gap-16 basis-1/4">
 					<CardDetail
 						eventName={"Mengenal Dunia Copy Writing"}
 						date={"04 Agustus 2024"}
@@ -53,7 +61,7 @@ const EventDetail = () => {
 						quantity={"100"}
 						place={"Zoom Meeting"}
 						organizerLogo={LogoBeekind}
-						organizerName={"Lorem"}		
+						organizerName={"Lorem"}
 					/>
 				</div>
 			</div>

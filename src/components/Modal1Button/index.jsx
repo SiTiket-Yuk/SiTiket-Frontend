@@ -6,7 +6,7 @@ export default function Modal1Button({title, message, buttonName, isOpen, onOpen
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent className="p-8">
+        <ModalContent className="p-8 text-sm">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col text-center">{title}</ModalHeader>

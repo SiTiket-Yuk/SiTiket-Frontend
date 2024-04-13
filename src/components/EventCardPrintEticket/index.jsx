@@ -14,22 +14,22 @@ const CardPrintETicket = ({
 }) => {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	return (
-		<Card className="lg:w-[450px] md:w-[300px] p-7">
+		<Card className="lg:w-[360px] md:w-[300px] p-7">
 			<Link href={"#"}>
 				<CardBody>
 					<div className="">	
-            			<p className="font-bold text-xl pt-2 pb-2">Tiket Saya</p>
+            			<p className="font-bold text- pb-2 pb-2">Tiket Saya</p>
 					</div>
           			<div className="flex flex-row justify-items-center mt-2 mb-2">
-						<PiTicketLight size={32} />
-						<p className="text-lg self-center ml-6">{quantity} tiket</p>
+						<PiTicketLight size={25} />
+						<p className="text-sm self-center ml-4">{quantity} tiket</p>
 					</div>
 				</CardBody>
 				<Divider />
 				<Button
           			color="secondary"
 					radius="full"
-					className="font-semibold text-base p-7 mb-6 mt-6 mx-auto"
+					className="font-semibold text-sm p-6 mb-6 mt-6 mx-auto"
 					fullWidth
 					onPress={onOpen}
 				>

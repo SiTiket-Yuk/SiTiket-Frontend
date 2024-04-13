@@ -5,14 +5,13 @@ import { IoIosRemove } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 
 const QuantityCounter = ({
-	cost,
   quantityTicket,
 	initialAvailable = true // Atur nilai default
 }) => {
   	const [available, setAvailable] = useState(initialAvailable);
-	  const [isDisabled, setIsDisabled] = useState(!available);
+	  const [isDisabled, setIsDisabled] = useState(!available);  
     const [quantity, setQuantity] = useState(1);
-    
+
     const decreaseButtonColor = available ? "#B05F8A" : "#929292";
     const increaseButtonColor = available ? "#B05F8A" : "#929292";
     const buttonTextColor = "#FFFFFF";
@@ -40,22 +39,22 @@ const QuantityCounter = ({
           disabled={!available}
           onClick={decreaseQuantity}
         >
-          <IoIosRemove size={25}/>
+          <IoIosRemove size={15}/>
         </Button>
       </div>
-      <div className="pr-4 text-large">
+      <div className="pr-4 text-sm">
         <p>{quantity}</p>       
       </div>
       <div>
         <Button 
           isIconOnly 
+          size="sm"
           radius="full" 
-          size="sm" 
           style={{ backgroundColor: increaseButtonColor, color: buttonTextColor }}
           disabled={!available}
           onClick={increaseQuantity} 
         >
-          <IoIosAdd size={25}/>
+          <IoIosAdd size={15}/>
         </Button>
       </div>
     </div>

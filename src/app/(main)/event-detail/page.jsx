@@ -16,7 +16,7 @@ const EventDetail = () => {
 	   setticketOwned(true);
 	};
 	return (
-		<div className="container mx-auto">
+		<div className="container mx-auto max-w-[1100px]">
 			<Breadcrumbs
 				link1={"#"}
 				link2={"#"}
@@ -25,7 +25,7 @@ const EventDetail = () => {
 				pageName2={"Webinar"}
 				pageName3={"Mengenal Dunia Copy Writing"}
 			/>
-			<div class="flex flex-row gap-10 mb-32">
+			<div class="flex flex-column gap-10 mb-32">
 				<div class="basis-3/4">
 					<div>
 						<Image
@@ -53,7 +53,7 @@ const EventDetail = () => {
 					>
 					</CategoryBar>
 				</div>
-				<div class="basis-1/4 ml-8 flex flex-col gap-16">
+				<div class="ml-8 flex flex-col gap-8 basis-1/4">
 					<CardDetail
 						eventName={"Mengenal Dunia Copy Writing"}
 						date={"04 Agustus 2024"}

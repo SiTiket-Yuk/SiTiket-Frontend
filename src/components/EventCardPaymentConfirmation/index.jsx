@@ -8,9 +8,6 @@ import InformationMsg from "../InformationMessage";
 const CardPaymentConfirmation = ({ 
   totalTix,
   tixPrice,
-  totalPrice,
-  platformFee,
-  totalPayment,
   paymentDeadline
 }) => {
 
@@ -29,38 +26,42 @@ const CardPaymentConfirmation = ({
   const handleCloseInformationMsg = () => {
     setPaymentConfirmation(false); 
   };
+  const platformFee = 0;
+  const totalPrice = tixPrice * totalTix;
+  const totalPayment = totalPrice+platformFee;
+  
 
   return (
     <>
-      <Card className="lg:w-[450px] md:w-[300px] p-7">
+      <Card className="lg:w-[400px] md:w-[300px] p-4">
         <CardBody>
           <div> 
-            <p className="font-bold text-xl pt-2 pb-2">Detail Harga</p>
+            <p className="font-bold text-base pt-2 pb-2">Detail Harga</p>
             <div className="flex flex-row justify-between ">
-              <p className="text-xl pt-2 pb-2">Jumlah Tiket</p>
-              <p className="text-xl pt-2 pb-2">x{totalTix}</p>
+              <p className="text-sm pt-2 pb-2">Jumlah Tiket</p>
+              <p className="text-sm pt-2 pb-2">x{totalTix}</p>
             </div>
             <div className="flex flex-row justify-between ">
-              <p className="text-xl pt-2 pb-2">Harga Tiket</p>
-              <p className="text-xl pt-2 pb-2">Rp. {tixPrice}</p>
+              <p className="text-sm pt-2 pb-2">Harga Tiket</p>
+              <p className="text-sm pt-2 pb-2">Rp. {tixPrice}</p>
             </div>
             <div className="flex flex-row justify-between ">
-              <p className="text-xl pt-2 pb-2">Total Harga Tiket</p>
-              <p className="text-xl pt-2 pb-2">Rp. {totalPrice}</p>
+              <p className="text-sm pt-2 pb-2">Total Harga Tiket</p>
+              <p className="text-sm pt-2 pb-2">Rp. {totalPrice}</p>
             </div>
             <div className="flex flex-row justify-between ">
-              <p className="text-xl pt-2 pb-2">Biaya Platform </p>
-              <p className="text-xl pt-2 pb-2">Rp. {platformFee}</p>
+              <p className="text-sm pt-2 pb-2">Biaya Platform </p>
+              <p className="text-sm pt-2 pb-2">Rp. {platformFee}</p>
             </div>
             <Divider className="mt-4 mb-4"/>
             <div className="flex flex-row justify-between ">         
-              <p className="font-bold  text-xl pt-2 pb-4">Total Bayar </p>
-              <p className="font-bold  text-xl pt-2 pb-2">Rp. {totalPayment}</p>
+              <p className="font-bold  text-sm pt-2 pb-4">Total Bayar </p>
+              <p className="font-bold  text-sm pt-2 pb-2">Rp. {totalPayment}</p>
             </div>
 
             {/* jika status payment reminder == true (waktu pembayaran masih berlaku), tampilkan ini */}
             {paymentReminder && (
-                <p className="text-large pt-2 text-center text-neutral-300">Selesaikan pembayaran sebelum {paymentDeadline} </p>
+                <p className="text-sm pt-2 text-center text-neutral-300">Selesaikan pembayaran sebelum {paymentDeadline} </p>
              )}           
           </div>
         </CardBody>
@@ -71,7 +72,7 @@ const CardPaymentConfirmation = ({
             <Button
             radius="full"
             color="secondary"
-            className="font-semibold text-base p-7 mx-auto"
+            className="font-semibold text-sm p-6 mx-auto"
             fullWidth
             onPress={onOpen}
             style={{ display: paymentReminder ? 'none' : 'flex' }}

@@ -11,7 +11,7 @@ export default function Modal2Buttons({title, message, leftButton, rightButton, 
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent className="p-8">
+        <ModalContent className="p-8 text-sm">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col text-center">{title}</ModalHeader>
