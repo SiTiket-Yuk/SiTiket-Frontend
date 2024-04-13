@@ -14,12 +14,22 @@ const CardPaymentConfirmation = ({
   paymentDeadline
 }) => {
 
-  // atur status paymentconfirmation
+
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  // atur status paymentconfirmation, paymentReminder
   const [paymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [paymentReminder, setPaymentReminder] = useState(false);
+
   const handleConfirmPayment = () => {
     setPaymentConfirmation(true);
+    setPaymentReminder(true); 
   };
+
+  const handleCloseInformationMsg = () => {
+    setPaymentConfirmation(false); 
+  };
+
   return (
     <>
       <Card className="lg:w-[450px] md:w-[300px] p-7">
@@ -47,22 +57,29 @@ const CardPaymentConfirmation = ({
               <p className="font-bold  text-xl pt-2 pb-4">Total Bayar </p>
               <p className="font-bold  text-xl pt-2 pb-2">Rp. {totalPayment}</p>
             </div>
-            {paymentConfirmation && (
+
+            {/* jika status payment reminder == true (waktu pembayaran masih berlaku), tampilkan ini */}
+            {paymentReminder && (
                 <p className="text-large pt-2 text-center text-neutral-300">Selesaikan pembayaran sebelum {paymentDeadline} </p>
-             )}          
+             )}           
           </div>
         </CardBody>
-        <CardFooter className="">
-          <Button
+        <CardFooter>
+
+          {/* jika status payment reminder == false (waktu pembayaran false/expired), tampilkan ini */}
+          {!paymentReminder && (
+            <Button
             radius="full"
             color="secondary"
             className="font-semibold text-base p-7 mx-auto"
             fullWidth
             onPress={onOpen}
-            style={{ display: paymentConfirmation ? 'none' : 'flex' }}
+            style={{ display: paymentReminder ? 'none' : 'flex' }}
           >
-            Bayar Tiket
-          </Button>
+              Bayar Tiket
+            </Button>
+          )}  
+
 		  
           <Modal2Buttons
             message={"Apakah Anda yakin ingin membeli tiket ini?"}
@@ -75,10 +92,18 @@ const CardPaymentConfirmation = ({
         </CardFooter>
       </Card>
       
-      {/* jika paymentconfirmation == true, tampilkan information message dan deadline pembayaran */}
+      {/* jika paymentconfirmation == true, tampilkan information message*/}
       {paymentConfirmation && (
-          <InformationMsg/>          
+          <InformationMsg
+            titleMsg={"Pemesanan tiket berhasil diproses!"}
+            bodyMsg={"Periksa email Anda untuk mendapatkan kode dan tata cara pembayaran"}
+            onClose={handleCloseInformationMsg}
+          />          
       )}  
+
+
+
+
     </>
   );
 };
