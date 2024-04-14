@@ -5,12 +5,16 @@ import { IoIosRemove } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 
 const QuantityCounter = ({
-  quantityTicket,
-	initialAvailable = true // Atur nilai default
+  quantityTicket, 
+  quantity,
+  setQuantity,
+  setTotalCost,
+  totalCost,
+  eventCost,
+	initialAvailable = true 
 }) => {
   	const [available, setAvailable] = useState(initialAvailable);
 	  const [isDisabled, setIsDisabled] = useState(!available);  
-    const [quantity, setQuantity] = useState(1);
 
     const decreaseButtonColor = available ? "#B05F8A" : "#929292";
     const increaseButtonColor = available ? "#B05F8A" : "#929292";
@@ -19,12 +23,14 @@ const QuantityCounter = ({
     const decreaseQuantity = () => {
       if (quantity > 1 ) { 
         setQuantity(quantity - 1);
+        setTotalCost(totalCost-eventCost)
       }
     };
   
     const increaseQuantity = () => {
       if(quantity >= 1 && quantity <= quantityTicket ){
         setQuantity(quantity + 1);
+        setTotalCost(totalCost+eventCost)
       }
     };
 

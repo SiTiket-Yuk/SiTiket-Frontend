@@ -4,15 +4,17 @@ import LogoBeekind from "../../../../public/logo/LogoBeekind.png";
 import CardPaymentDetail from "@/components/EventCardPaymentDetail";
 import EventCardImg from "../../../../public/imageEvents/EventCardImg.png";
 import CardPaymentConfirmation from "@/components/EventCardPaymentConfirmation";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const EventDetail = () => {
-	// State untuk menyimpan jumlah tiket terakhir
+	const router = useRouter();
+	const {quantity, cost} = useSearchParams(router);
 
 	return (
 		<div className="container mx-auto max-w-[1100px] mt-16 mb-16">
 			<p className="text-xl font-bold mt-16 mb-10">Detail Pemesanan</p>
-			<div class="flex flex-row gap-8 mb-32">
-				<div class="basis-3/4">
+			<div className="flex flex-row gap-8 mb-32">
+				<div className="basis-3/4">
 				<CardPaymentDetail
 						eventImg={EventCardImg}
 						eventName={"Mengenal Dunia Copy Writing"}
@@ -25,8 +27,8 @@ const EventDetail = () => {
 				</div>
 				<div class="basis-1/4 ml-8 flex flex-col gap-8">
 					<CardPaymentConfirmation
-						totalTix={4}
-						tixPrice={30000}
+						totalTix={quantity}
+						tixPrice={cost}
 					/>
 				</div>
 			</div>

@@ -68,8 +68,8 @@ const EventDetail = () => {
 					{!ticketOwned && (
 						<CardAddTix
 						eventName={"Mengenal Dunia Copy Writing"}
-						cost={"Rp. 30.000"}
-						quantityTix={"100"}
+						cost={30000}
+						quantityTix={100}
 						/>
 					)} 
 
