@@ -15,11 +15,12 @@ const EventCard = ({
 	cost,
 	organizerLogo,
 	organizerName,
+	style,
 }) => {
 	const formattedCost = cost.toLocaleString("id-ID");
 
 	return (
-		<Card className="lg:w-[450px] md:w-[300px]">
+		<Card className="lg:w-[450px] md:w-[300px]" style={style}>
 			<Link href={"#"}>
 				<CardBody className="p-5">
 					<Image src={eventImg.src} alt={eventName} />

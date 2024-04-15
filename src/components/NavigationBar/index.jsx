@@ -52,7 +52,7 @@ const AuthenticatedUser = ({ avatar }) => {
 						color="secondary"
 						className="p-2"
 					>
-						<DropdownItem key="userTicket" href="#" textValue="Tiket Saya">
+						<DropdownItem key="userTicket" href="/mytiket" textValue="Tiket Saya">
 							<div className="text-base">Tiket Saya</div>
 						</DropdownItem>
 						<DropdownItem
@@ -62,7 +62,7 @@ const AuthenticatedUser = ({ avatar }) => {
 						>
 							<div className="text-base">Jelajahi Event</div>
 						</DropdownItem>
-						<DropdownItem key="setting" href="#" textValue="Pengaturan">
+						<DropdownItem key="setting" href="/profilepage" textValue="Pengaturan">
 							<div className="text-base">Pengaturan</div>
 						</DropdownItem>
 					</DropdownMenu>
@@ -75,7 +75,7 @@ const AuthenticatedUser = ({ avatar }) => {
 const GuestUser = () => {
 	return (
 		<>
-			<Link href="/register">
+			<Link href="/register-page">
 				<div
 					className="block rounded-full text-white font-bold border-white 
 						border-2 p-3 px-5 over:bg-blue-300 hover:border-blue-100 hover:text-blue-100"

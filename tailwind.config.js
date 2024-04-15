@@ -18,13 +18,17 @@ module.exports = {
 				primary: "#0075B4",
 				secondary: "#B05F8A",
 				overview: "#F8F8F8",
+				warning: "#b5618d",
+				blue: "#0075B4"
 			},
 			colors: {
 				navbar: "#B0E3FF",
-				secondary: "#B05F8A",
+				secondary: "#c17aa0",
+				blue: "#0075B4"
 			},
 			textColor: {
 				blue: "#0075B4",
+				white: "#FFFFFF"
 			},
 		},
 	},
