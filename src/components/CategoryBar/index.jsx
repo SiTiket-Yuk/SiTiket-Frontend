@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@nextui-org/react";
+import { Link } from "next/link";
 const EventCategory = ({ categories }) => {
 	return (
 		<div className="flex flex-nowrap mt-8 text-base category ">
