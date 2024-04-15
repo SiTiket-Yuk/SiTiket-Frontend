@@ -3,13 +3,7 @@ import { CiClock2 } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 import { PiTicketLight } from "react-icons/pi";
 
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	Divider,
-	Avatar,
-} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Divider, Avatar } from "@nextui-org/react";
 
 const CardDetail = ({
 	eventName,
@@ -20,11 +14,10 @@ const CardDetail = ({
 	organizerLogo,
 	organizerName,
 }) => {
-
 	return (
 		<Card className="lg:w-[360px] md:w-[150px] p-4">
 			<CardBody>
-				<div>	
+				<div>
 					<p className="font-bold text-base pt-2 pb-2">{eventName}</p>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
 						<CiCalendar size={25} />
@@ -46,7 +39,7 @@ const CardDetail = ({
 			</CardBody>
 			<Divider />
 			<CardFooter className="flex gap-4">
-				<Avatar radius="full" size="sm" src={organizerLogo.src} />
+				<Avatar radius="full" size="sm" src={organizerLogo} />
 				<p className="text-sm">{organizerName}</p>
 			</CardFooter>
 		</Card>

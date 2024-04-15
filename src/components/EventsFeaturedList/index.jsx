@@ -1,7 +1,6 @@
-import CardPaymentDetail from "@/components/EventCardPaymentDetail";
-import EventCardImg from "../../../public/imageEvents/EventCardImg.png";
-import LogoBeekind from "../../../public/logo/LogoBeekind.png";
-import EventCard from "../EventCard";
+import EventCard from "@/components/EventCard";
+import { eventDummyData } from "@/data/eventsJSON";
+
 const EventsFeaturedList = () => {
 	return (
 		<article className="flex flex-col mb-10">
@@ -9,32 +8,18 @@ const EventsFeaturedList = () => {
 				Event Pilihan
 			</h2>
 			<div className="flex flex-wrap lg:gap-8 sm:gap-5 lg:justify-between lg:items-stretch md:justify-center md:items-center">
-				<EventCard
-					eventImg={EventCardImg}
-					eventName={
-						"Lorem Ipsum Lorem Ipsum Lorem IpsumLorem IpsumLorem Ipsum"
-					}
-					date={"04 Agustus 2024"}
-					cost={100000}
-					organizerLogo={LogoBeekind}
-					organizerName={"Lorem"}
-				/>
-				<EventCard
-					eventImg={EventCardImg}
-					eventName={"Lorem Ipsum"}
-					date={"04 Agustus 2024"}
-					cost={100000}
-					organizerLogo={LogoBeekind}
-					organizerName={"Lorem"}
-				/>
-				<EventCard
-					eventImg={EventCardImg}
-					eventName={"Lorem Ipsum"}
-					date={"04 Agustus 2024"}
-					cost={100000}
-					organizerLogo={LogoBeekind}
-					organizerName={"Lorem"}
-				/>
+				{eventDummyData.map((event) => (
+					<EventCard
+						key={event.name}
+						id={event.id}
+						image={event.post.src}
+						name={event.name}
+						date={event.date}
+						cost={event.cost}
+						organizerLogo={event.organizerLogo.src}
+						organizerName={event.organizerName}
+					/>
+				))}
 			</div>
 		</article>
 	);

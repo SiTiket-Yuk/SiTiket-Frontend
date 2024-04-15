@@ -23,13 +23,17 @@ const CardPaymentDetail = ({
 	return (
 		<Card className="fullWidth p-4">
 			<CardBody>
-				<div style={{ 
-					height: "180px", 
-					background: `url(${eventImg.src}) center/cover no-repeat`,
-					borderRadius: "10px",
-					marginBottom: "16px"
-				}}> </div>
-				<div>	
+				<div
+					style={{
+						height: "180px",
+						background: `url(${eventImg.src}) center/cover no-repeat`,
+						borderRadius: "10px",
+						marginBottom: "16px",
+					}}
+				>
+					{" "}
+				</div>
+				<div>
 					<p className="font-bold text-base pt-2 pb-2">{eventName}</p>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
 						<CiCalendar size={25} />
@@ -38,7 +42,7 @@ const CardPaymentDetail = ({
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
 						<CiClock2 size={25} />
 						<p className="text-sm self-center ml-4">{time}</p>
-						</div>
+					</div>
 					<div className="flex flex-row justify-items-center mt-2 mb-2">
 						<CiLocationOn size={25} />
 						<p className="text-sm self-center ml-4">{place}</p>

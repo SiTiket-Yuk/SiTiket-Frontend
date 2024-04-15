@@ -1,8 +1,7 @@
 const Register = () => {
 	return (
 		<div>
-			<h1>TEST</h1>
-			<h2>WOI</h2>
+			<p>This Is Register Page</p>
 		</div>
 	);
 };
