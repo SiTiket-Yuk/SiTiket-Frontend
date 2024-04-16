@@ -5,7 +5,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from
 export default function Modal1Button({title, message, buttonName, isOpen, onOpenChange }) {
   return (
     <>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} hideCloseButton>
         <ModalContent className="p-8">
           {(onClose) => (
             <>
@@ -14,7 +14,7 @@ export default function Modal1Button({title, message, buttonName, isOpen, onOpen
                 <p>{message}</p>
               </ModalBody>
               <ModalFooter className="flex flex-row justify-center">
-                <Button color="secondary" onPress={onClose} fullWidth>
+                <Button color="secondary" onPress={onClose} fullWidth className="rounded-full">
                   {buttonName}
                 </Button>
               </ModalFooter>
