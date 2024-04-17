@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 const EventCategory = ({ categories }) => {
 	return (
@@ -5,9 +6,14 @@ const EventCategory = ({ categories }) => {
 			<p className="font-bold pr-4">Kategori: </p>
 			<div className=" text-sky-500 underline">
 				{categories.map((category, index) => (
-					<a key={index} className="mr-3" href={category.toLowerCase()}>
+					<Link
+						key={index}
+						className="mr-3"
+						/*{benerin hrefnya kalo discovery udah bisa}*/
+						href={`/${category.toLowerCase()}`}
+					>
 						{category}
-					</a>
+					</Link>
 				))}
 			</div>
 		</div>
