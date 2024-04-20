@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import LogoLight from "../../../../public/logo/LogoLight.png";
 import LogoLogin from "../../../../public/logo/LogoLogin.png";
 import "./styles.css";
 import React, { Suspense, useEffect, useState } from "react";
@@ -114,8 +113,8 @@ const Login = () => {
 	};
 
 	return (
-		<Suspense fallback={<>Loading...</>}>
-			<div className="mx-auto flex flex-col">
+		<div className="mx-auto flex flex-col">
+			<Suspense fallback={<>Loading...</>}>
 				<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center hero-image">
 					<Image
 						className="object-cover max-w-full h-auto"
@@ -123,7 +122,6 @@ const Login = () => {
 						alt="Login Logo"
 					/>
 				</div>
-
 				<div
 					className="flex min-h-window md:flex-row flex-col lg:px-52 md:px-32 
 				sm:px-20 py-20 justify-between items-center"
@@ -469,8 +467,8 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-		</Suspense>
+			</Suspense>
+		</div>
 	);
 };
 
