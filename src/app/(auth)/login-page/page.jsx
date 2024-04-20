@@ -114,7 +114,7 @@ const Login = () => {
 	};
 
 	return (
-		<Suspense>
+		<Suspense fallback={<>Loading...</>}>
 			<div className="mx-auto flex flex-col">
 				<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center hero-image">
 					<Image
