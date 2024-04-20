@@ -16,7 +16,7 @@ const Login = () => {
 	const [showPopupBelumTerdaftar, setshowPopupBelumTerdaftar] = useState(false);
 	const [showPopupEmailSalah, setshowPopupEmailSalah] = useState(false);
 	const [showPopupPasswordSalah, setshowPopupPasswordSalah] = useState(false);
-
+	/*
 	const searchParams = useSearchParams();
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ const Login = () => {
 			setEmailError("");
 		}
 	}, [searchParams, setEmail, setEmailError]);
-
+  */
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (!validateEmail(email)) {
@@ -114,38 +114,38 @@ const Login = () => {
 
 	return (
 		<div className="mx-auto flex flex-col">
-			<Suspense fallback={<>Loading...</>}>
-				<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center hero-image">
-					<Image
-						className="object-cover max-w-full h-auto"
-						src={LogoLogin}
-						alt="Login Logo"
-					/>
-				</div>
-				<div
-					className="flex min-h-window md:flex-row flex-col lg:px-52 md:px-32 
+			<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center hero-image">
+				<Image
+					className="object-cover max-w-full h-auto"
+					src={LogoLogin}
+					alt="Login Logo"
+				/>
+			</div>
+			<div
+				className="flex min-h-window md:flex-row flex-col lg:px-52 md:px-32 
 				sm:px-20 py-20 justify-between items-center"
-					style={{ marginLeft: "535px" }}
-				>
-					<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center">
-						<div
-							class="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none"
-							style={{ width: "650px", height: "87px", marginTop: "10px" }}
+				style={{ marginLeft: "200px" }}
+			>
+				<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center">
+					<div
+						className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none"
+						style={{ width: "650px", height: "87px", marginTop: "10px" }}
+					>
+						<h4
+							className="block font-zen-kaku-gothic-antique text-2xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
+							style={{ fontSize: "31.25px", color: "#424242" }}
 						>
-							<h4
-								className="block font-zen-kaku-gothic-antique text-2xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
-								style={{ fontSize: "31.25px", color: "#424242" }}
-							>
-								Kami senang melihatmu lagi! Masuk dan jelajahi pengalaman
-								memesan tiket event favoritmu dengan mudah
-							</h4>
+							Kami senang melihatmu lagi! Masuk dan jelajahi pengalaman memesan
+							tiket event favoritmu dengan mudah
+						</h4>
+						<Suspense fallback={<>Loading...</>}>
 							<form
-								class="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+								className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
 								onSubmit={handleSubmit}
 							>
 								<div class="mb-4 flex flex-col gap-7">
 									<div
-										class="relative h-[57px] w-[563px] min-w-[200px] "
+										className="relative h-[57px] w-[563px] min-w-[200px] "
 										style={{
 											marginBottom:
 												emailError &&
@@ -156,12 +156,12 @@ const Login = () => {
 									>
 										<input
 											class="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
-											placeHolder=" "
+											placeholder=" "
 											type="email"
 											value={email}
 											onChange={handleChangeEmail}
 										/>
-										<label class="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]">
+										<label className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]">
 											Masukkan email
 										</label>
 										{emailError &&
@@ -180,7 +180,7 @@ const Login = () => {
 									</div>
 
 									<div
-										class="relative h-[57px] w-[563px] min-w-[200px]"
+										className="relative h-[57px] w-[563px] min-w-[200px]"
 										style={{
 											marginBottom:
 												passwordError &&
@@ -192,12 +192,12 @@ const Login = () => {
 									>
 										<input
 											type="password"
-											class="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
-											placeHolder=" "
+											className="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
+											placeholder=" "
 											value={password}
 											onChange={handleChangePassword}
 										/>
-										<label class="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]">
+										<label className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]">
 											Masukkan password
 										</label>
 										{passwordError &&
@@ -464,10 +464,10 @@ const Login = () => {
 									</Link>
 								</p>
 							</form>
-						</div>
+						</Suspense>
 					</div>
 				</div>
-			</Suspense>
+			</div>
 		</div>
 	);
 };
