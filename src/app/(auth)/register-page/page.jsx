@@ -224,29 +224,27 @@ const RegisterFailedMessage = ({ togglePopup, email }) => {
 					>
 						Ubah email
 					</button>
-					<Suspense fallback={<>Loading...</>}>
-						<Link
-							class="transition-colors"
-							href={{ pathname: "/login-page", query: { userEmail: email } }}
-						>
-							<button
-								className="block w-[157px] h-[42px] select-none rounded-full bg-pink-400 
+					<Link
+						class="transition-colors"
+						href={{ pathname: "/login-page", query: { userEmail: email } }}
+					>
+						<button
+							className="block w-[157px] h-[42px] select-none rounded-full bg-pink-400 
               text-white font-bold text-xs shadow-md transition-all hover:shadow-lg 
                 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-								type="button"
-								style={{
-									marginLeft: "0px",
-									borderRadius: "40px",
-									backgroundColor: "#b5618d",
-									fontSize: "12px",
-									marginLeft: "6px",
-								}}
-								data-ripple-light="true"
-							>
-								<span>Masuk</span>
-							</button>
-						</Link>
-					</Suspense>
+							type="button"
+							style={{
+								marginLeft: "0px",
+								borderRadius: "40px",
+								backgroundColor: "#b5618d",
+								fontSize: "12px",
+								marginLeft: "6px",
+							}}
+							data-ripple-light="true"
+						>
+							<span>Masuk</span>
+						</button>
+					</Link>
 				</div>
 			</PopoverContent>
 		</Popover>
