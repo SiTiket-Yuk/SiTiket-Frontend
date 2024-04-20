@@ -19,7 +19,8 @@ module.exports = {
 				secondary: "#B05F8A",
 				overview: "#F8F8F8",
 				warning: "#b5618d",
-				blue: "#0075B4"
+				blue: "#0075B4",
+				disabled: "#929292",
 			},
 			colors: {
 				navbar: "#B0E3FF",

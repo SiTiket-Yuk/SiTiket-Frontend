@@ -1,6 +1,5 @@
 import EventCard from "@/components/EventCard";
-import EventCardImg from "../../../public/imageEvents/EventCardImg.png";
-import LogoBeekind from "../../../public/logo/LogoBeekind.png";
+import { eventDummyData } from "@/data/eventsJSON";
 
 const EventsOngoingThisWeek = () => {
 	return (
@@ -9,30 +8,18 @@ const EventsOngoingThisWeek = () => {
 				Berlangsung Minggu Ini
 			</h2>
 			<div className="flex flex-wrap lg:gap-8 sm:gap-5 lg:justify-between md:justify-center justify-center">
-				<EventCard
-					eventImg={EventCardImg}
-					eventName={"Lorem Ipsum Lorem Ipsum Lorem Ipsum"}
-					date={"04 Agustus 2024"}
-					cost={100000}
-					organizerLogo={LogoBeekind}
-					organizerName={"Lorem"}
-				/>
-				<EventCard
-					eventImg={EventCardImg}
-					eventName={"Lorem Ipsum"}
-					date={"04 Agustus 2024"}
-					cost={100000}
-					organizerLogo={LogoBeekind}
-					organizerName={"Lorem"}
-				/>
-				<EventCard
-					eventImg={EventCardImg}
-					eventName={"Lorem Ipsum"}
-					date={"04 Agustus 2024"}
-					cost={100000}
-					organizerLogo={LogoBeekind}
-					organizerName={"Lorem"}
-				/>
+				{eventDummyData.map((event) => (
+					<EventCard
+						key={event.name}
+						id={event.id}
+						image={event.post.src}
+						name={event.name}
+						date={event.date}
+						cost={event.cost}
+						organizerLogo={event.organizerLogo.src}
+						organizerName={event.organizerName}
+					/>
+				))}
 			</div>
 		</article>
 	);
