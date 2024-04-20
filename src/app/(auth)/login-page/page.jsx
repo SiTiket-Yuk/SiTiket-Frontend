@@ -340,7 +340,7 @@ const LoginForm = ({
 	);
 };
 
-const Login = () => {
+const Login = ({ searchParams }) => {
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
 	const [emailError, setEmailError] = useState("Masukkan email");
@@ -349,16 +349,6 @@ const Login = () => {
 	const [showPopupBelumTerdaftar, setshowPopupBelumTerdaftar] = useState(false);
 	const [showPopupEmailSalah, setshowPopupEmailSalah] = useState(false);
 	const [showPopupPasswordSalah, setshowPopupPasswordSalah] = useState(false);
-
-	const searchParams = useSearchParams();
-
-	useEffect(() => {
-		const initialEmail = searchParams.get("userEmail");
-		if (initialEmail) {
-			setEmail(initialEmail);
-			setEmailError("");
-		}
-	}, [searchParams, setEmail, setEmailError]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -457,7 +447,7 @@ const Login = () => {
 			<div
 				className="flex min-h-window md:flex-row flex-col lg:px-52 md:px-32 
 				sm:px-20 py-20 justify-between items-center"
-				style={{ marginLeft: "200px" }}
+				style={{ marginLeft: "500px" }}
 			>
 				<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center">
 					<div

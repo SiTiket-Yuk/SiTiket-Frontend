@@ -225,10 +225,7 @@ const RegisterFailedMessage = ({ togglePopup, email }) => {
 						Ubah email
 					</button>
 
-					<Link
-						class="transition-colors"
-						href={{ pathname: "/login-page", query: { userEmail: email } }}
-					>
+					<Link class="transition-colors" href={"/login-page"}>
 						<button
 							className="block w-[157px] h-[42px] select-none rounded-full bg-pink-400 
               text-white font-bold text-xs shadow-md transition-all hover:shadow-lg 
