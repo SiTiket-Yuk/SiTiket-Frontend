@@ -1,401 +1,32 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import LogoLogin from "../../../../public/logo/LogoLogin.png";
+import ImageHeroLogin from "../../../../public/images/ImageHeroLogin.svg";
 import "./styles.css";
 import React, { Suspense, useEffect, useState } from "react";
-import { Popover, PopoverContent } from "@nextui-org/react";
+import { Button, Popover, PopoverContent } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
+import InputSubFormFactory from "@/components/InputSubFormFactory/InputSubFormFactory";
 
-const LoginForm = ({
-	handleSubmit,
-	emailError,
+const EmailSubForm = ({
 	email,
-	handleChangeEmail,
-	password,
-	handleChangePassword,
-	passwordError,
-	togglePopup,
-	showPopupSuccess,
-	showPopupEmailSalah,
-	showPopupPasswordSalah,
-	showPopupBelumTerdaftar,
-	fromParamEmail,
 	setEmail,
+	type,
+	text,
+	emailError,
+	setEmailError,
 }) => {
-	useEffect(() => {
-		const fromURLEmail = fromParamEmail.get("userEmail");
-		if (fromURLEmail != null) {
-			setEmail(fromURLEmail);
-		}
-	}, [fromParamEmail, setEmail]);
-
-	return (
-		<form
-			className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-			onSubmit={handleSubmit}
-		>
-			<div class="mb-4 flex flex-col gap-7">
-				<div
-					className="relative h-[57px] w-[563px] min-w-[200px] "
-					style={{
-						marginBottom:
-							emailError && emailError == "Masukkan format email yang sesuai"
-								? "20px"
-								: "0px",
-					}}
-				>
-					<input
-						class="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 
-            font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 
-            placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
-						placeholder=" "
-						type="email"
-						value={email}
-						onChange={handleChangeEmail}
-					/>
-					<label
-						className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 
-          flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none 
-          after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
-					>
-						Masukkan email
-					</label>
-					{emailError && emailError == "Masukkan format email yang sesuai" && (
-						<p
-							style={{
-								position: "absolute",
-								top: "120%",
-								left: 3,
-								color: "#AC0000",
-							}}
-						>
-							{emailError}
-						</p>
-					)}
-				</div>
-
-				<div
-					className="relative h-[57px] w-[563px] min-w-[200px]"
-					style={{
-						marginBottom:
-							passwordError &&
-							passwordError == "Password harus terdiri dari minimal 8 karakter"
-								? "20px"
-								: "0px",
-					}}
-				>
-					<input
-						type="password"
-						className="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 
-            font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 
-            placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
-						placeholder=" "
-						value={password}
-						onChange={handleChangePassword}
-					/>
-					<label
-						className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex 
-          h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none 
-          after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
-					>
-						Masukkan password
-					</label>
-					{passwordError && passwordError == "Password minimal 8 karakter" && (
-						<p
-							style={{
-								position: "absolute",
-								top: "120%",
-								left: 0,
-								color: "#AC0000",
-							}}
-						>
-							{passwordError}
-						</p>
-					)}
-				</div>
-			</div>
-
-			<button
-				className="mt-14 ml-28 block w-[341px] h-[66px] select-none rounded-full bg-pink-400 text-white font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-				type="button"
-				disabled={
-					emailError == "Masukkan email" ||
-					passwordError == "Masukkan password" ||
-					emailError == "Masukkan format email yang sesuai" ||
-					passwordError == "Password minimal 8 karakter"
-				}
-				style={{
-					borderRadius: "40px",
-					backgroundColor:
-						emailError == "Masukkan email" ||
-						passwordError == "Masukkan password" ||
-						emailError == "Masukkan format email yang sesuai" ||
-						passwordError == "Password minimal 8 karakter"
-							? "#D4D4D4"
-							: "#b5618d",
-					color:
-						emailError == "Masukkan email" ||
-						passwordError == "Masukkan password" ||
-						emailError == "Masukkan format email yang sesuai" ||
-						passwordError == "Password minimal 8 karakter"
-							? "#A5A5A5"
-							: "#FFFFFF",
-					fontSize: "18px",
-				}}
-				data-ripple-light="true"
-				onClick={togglePopup}
-			>
-				Masuk
-			</button>
-
-			{showPopupSuccess && (
-				<Popover backdrop="opaque" className="success-popup">
-					<PopoverContent className="w-[463px] h-[258px]">
-						<div className="success-content-top">
-							Selamat Datang Kembali ...!{" "}
-							{/*UBAH DISINI UNTUK AMBIL NAMA DRI DATABASE*/}
-						</div>
-						<div className="success-content-bottom">
-							Bersiaplah untuk petualangan yang seru! <br />
-							Event-event terkini menanti untuk Anda eksplorasi
-						</div>
-						<div style={{ justifyContent: "center" }}>
-							<button
-								className="block w-[326px] h-[41px] select-none rounded-full bg-pink-400 text-white 
-                font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2
-              focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-								type="button"
-								style={{
-									marginTop: "70px",
-									borderRadius: "40px",
-									backgroundColor: "#b5618d",
-									fontSize: "12px",
-								}}
-								data-ripple-light="true"
-								onClick={togglePopup}
-							>
-								Ok
-							</button>
-						</div>
-					</PopoverContent>
-				</Popover>
-			)}
-
-			{showPopupEmailSalah && (
-				<Popover backdrop="opaque" className="error-popup">
-					<PopoverContent className="w-[406px] h-[240px]">
-						<div className="error-content-top">Kesalahan Saat Login</div>
-						<div className="error-content-bottom">
-							Email yang Anda masukkan salah. Silakan coba lagi
-						</div>
-						<div style={{ justifyContent: "center", marginTop: "55px" }}>
-							<button
-								className="block w-[326px] h-[42px] select-none rounded-full bg-pink-400 text-white 
-                        font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2
-                      focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-								type="button"
-								style={{
-									borderRadius: "40px",
-									backgroundColor: "#b5618d",
-									fontSize: "12px",
-								}}
-								data-ripple-light="true"
-								onClick={togglePopup}
-							>
-								Kembali
-							</button>
-						</div>
-					</PopoverContent>
-				</Popover>
-			)}
-
-			{showPopupPasswordSalah && (
-				<Popover
-					backdrop="opaque"
-					style={{
-						top: "69.5px",
-						right: "421.5px",
-						width: "406px",
-						height: "240px",
-						borderRadius: "20px",
-					}}
-				>
-					<PopoverContent className="w-[406px] h-[240px]">
-						<div
-							style={{
-								width: "300px",
-								height: "20px",
-								textAlign: "center",
-								marginTop: "10px",
-								color: "black",
-								fontWeight: "bold",
-								fontSize: "20px",
-							}}
-						>
-							Kesalahan Saat Login
-						</div>
-						<div
-							style={{
-								width: "326px",
-								height: "5px",
-								textAlign: "center",
-								marginTop: "21px",
-								color: "black",
-								lineHeight: "18px",
-								fontSize: "16.5px",
-							}}
-						>
-							Password yang Anda masukkan salah. Silakan coba lagi
-						</div>
-						<div style={{ justifyContent: "center", marginTop: "55px" }}>
-							<button
-								className="block w-[326px] h-[42px] select-none rounded-full bg-pink-400 text-white font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-								type="button"
-								style={{
-									borderRadius: "40px",
-									backgroundColor: "#b5618d",
-									fontSize: "12px",
-								}}
-								data-ripple-light="true"
-								onClick={togglePopup}
-							>
-								Kembali
-							</button>
-						</div>
-					</PopoverContent>
-				</Popover>
-			)}
-
-			{showPopupBelumTerdaftar && (
-				<Popover
-					backdrop="opaque"
-					style={{
-						top: "69.5px",
-						right: "421.5px",
-						width: "406px",
-						height: "240px",
-						borderRadius: "20px",
-					}}
-				>
-					<PopoverContent className="w-[406px] h-[240px]">
-						<div
-							style={{
-								width: "300px",
-								height: "20px",
-								textAlign: "center",
-								marginTop: "10px",
-								color: "black",
-								fontWeight: "bold",
-								fontSize: "20px",
-							}}
-						>
-							Email Belum Terdaftar
-						</div>
-						<div
-							style={{
-								width: "326px",
-								height: "5px",
-								textAlign: "center",
-								marginTop: "21px",
-								color: "black",
-								lineHeight: "18px",
-								fontSize: "16.5px",
-							}}
-						>
-							Buat akun dengan email ini <br />
-							{email} ?
-						</div>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-								marginTop: "50px",
-							}}
-						>
-							<button
-								className="block w-[157px] h-[42px] select-none rounded-full bg-pink-400 text-white font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-								type="button"
-								style={{
-									borderRadius: "40px",
-									backgroundColor: "#b5618d",
-									fontSize: "12px",
-									marginRight: "6px",
-								}}
-								data-ripple-light="true"
-								onClick={togglePopup}
-							>
-								Kembali
-							</button>
-							<button
-								className="block w-[157px] h-[42px] select-none rounded-full bg-pink-400 text-white font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
-								type="button"
-								style={{
-									marginLeft: "0px",
-									borderRadius: "40px",
-									backgroundColor: "#b5618d",
-									fontSize: "12px",
-									marginLeft: "6px",
-								}}
-								data-ripple-light="true"
-							>
-								<Link href="/register-page" class="transition-colors">
-									<span>Buat Akun</span>
-								</Link>
-							</button>
-						</div>
-					</PopoverContent>
-				</Popover>
-			)}
-
-			<p className="mt-4 ml-44 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased ">
-				Belum punya akun?
-				<Link
-					href="/register-page"
-					className="ml-1 font-semibold text-gray-700 transition-colors hover:text-blue"
-				>
-					<span>Daftar</span>
-				</Link>
-			</p>
-		</form>
-	);
-};
-
-const Login = () => {
-	const [email, setEmail] = useState(null);
-	const [password, setPassword] = useState(null);
-	const [emailError, setEmailError] = useState("Masukkan email");
-	const [passwordError, setPasswordError] = useState("Masukkan password");
-	const [showPopupSuccess, setshowPopupSuccess] = useState(false);
-	const [showPopupBelumTerdaftar, setshowPopupBelumTerdaftar] = useState(false);
-	const [showPopupEmailSalah, setshowPopupEmailSalah] = useState(false);
-	const [showPopupPasswordSalah, setshowPopupPasswordSalah] = useState(false);
-
-	const searchParams = useSearchParams();
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		if (!validateEmail(email)) {
-			setEmailError("Email tidak valid");
-			return;
-		}
-
-		if (password.length < 8) {
-			setPasswordError("Password harus terdiri dari minimal 8 karakter");
-			return;
-		}
-
-		//EDIT UNTUK CONNECT KE DATABASE
-		// Kirim formulir jika input valid
-		// ...
+	const validateEmail = (email) => {
+		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return regex.test(email);
 	};
 
-	const handleChangeEmail = (event) => {
+	const handleEmailChange = (event) => {
 		const { value } = event.target;
 		setEmail(value);
 
-		if (value == "") {
-			setEmailError("Masukkan email");
+		if (value.length === 0) {
+			setEmailError("");
 		} else if (!validateEmail(value)) {
 			setEmailError("Masukkan format email yang sesuai");
 		} else {
@@ -403,108 +34,289 @@ const Login = () => {
 		}
 	};
 
-	const handleChangePassword = (event) => {
+	return (
+		<InputSubFormFactory
+			type={type}
+			data={email}
+			dataError={emailError}
+			handleInputChange={handleEmailChange}
+			text={text}
+		/>
+	);
+};
+
+const PasswordSubForm = ({
+	password,
+	setPassword,
+	type,
+	text,
+	passwordError,
+	setPasswordError,
+}) => {
+	const handlePasswordChange = (event) => {
 		const { value } = event.target;
 		setPassword(value);
 
-		if (value == "") {
-			setPasswordError("Masukkan password");
-		} else if (value.length < 8 && value.length != 0) {
+		if (value.trim() === "") {
+			setPasswordError("Password tidak boleh karakter kosong");
+		} else if (value.length < 8) {
 			setPasswordError("Password minimal 8 karakter");
 		} else {
 			setPasswordError("");
 		}
 	};
 
-	const validateEmail = (email) => {
-		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return regex.test(email);
-	};
+	return (
+		<InputSubFormFactory
+			type={type}
+			data={password}
+			handleInputChange={handlePasswordChange}
+			dataError={passwordError}
+			text={text}
+		/>
+	);
+};
 
-	const cekPassword = () => {
-		if (password === "12345678") {
-			// UBAH DISINI UNTK CEK KE DATABASE
-			return true;
+const PopoverFailedLogin = ({ hidePopup }) => {
+	return (
+		<Popover backdrop="opaque">
+			<PopoverContent className="py-10 px-10 gap-5">
+				<div className="font-bold text-xl">Kesalahan Saat Login</div>
+				<div className="flex flex-col items-center">
+					<p className="font-medium">
+						Email atau Password yang Anda masukkan salah.
+					</p>
+					<p className="font-medium">Silahkan coba lagi</p>
+				</div>
+				<Button
+					className="block w-full py-3 select-none rounded-full text-white font-bold 
+          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+					type="button"
+					data-ripple-light="true"
+					onPress={hidePopup}
+				>
+					Kembali
+				</Button>
+			</PopoverContent>
+		</Popover>
+	);
+};
+
+const PopoverNotExist = ({ email, hidePopup }) => {
+	return (
+		<Popover backdrop="opaque">
+			<PopoverContent className="py-10 px-10 gap-5">
+				<div className="font-bold text-xl">Email Belum Terdaftar</div>
+				<div className="flex flex-col items-center">
+					<p className="font-medium">Buat akun dengan Email ini?</p>
+					<p className="font-medium">{email}</p>
+				</div>
+				<div className="flex flex-row gap-5">
+					<Link href="/register-page">
+						<Button
+							className="w-[150px] py-3 select-none rounded-full text-white font-bold 
+          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+							type="button"
+							data-ripple-light="true"
+						>
+							Buat Akun
+						</Button>
+					</Link>
+					<Button
+						className="w-[150px] py-3 select-none rounded-full text-white font-bold 
+          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+						type="button"
+						data-ripple-light="true"
+						onPress={hidePopup}
+					>
+						Kembali
+					</Button>
+				</div>
+			</PopoverContent>
+		</Popover>
+	);
+};
+
+const SubmitButton = ({ isValid, handleSubmit }) => {
+	return (
+		<Button
+			className="mt-14 ml-28 block w-[341px] h-[66px] select-none rounded-full bg-pink-400
+    text-white font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+      focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
+			type="button"
+			disabled={!isValid}
+			style={{
+				borderRadius: "40px",
+				backgroundColor: isValid ? "#b5618d" : "#D4D4D4",
+				color: isValid ? "#FFFFFF" : "#A5A5A5",
+				fontSize: "18px",
+			}}
+			data-ripple-light="true"
+			onPress={handleSubmit}
+		>
+			Masuk
+		</Button>
+	);
+};
+
+const LoginForm = ({
+	email,
+	setEmail,
+	setPassword,
+	password,
+	emailError,
+	setEmailError,
+	passwordError,
+	setPasswordError,
+	isFormValid,
+	handleSubmit,
+}) => {
+	const searchParams = useSearchParams();
+
+	const emailFromRegister = searchParams.get("userEmail");
+	if (emailFromRegister != null) {
+		setEmail(emailFromRegister);
+	}
+
+	return (
+		<form className="mt-8 mb-2 max-w-screen-lg w-full">
+			<div className="mb-4 flex flex-col gap-10 relative">
+				<EmailSubForm
+					email={email}
+					setEmail={setEmail}
+					type={"text"}
+					text={"email"}
+					emailError={emailError}
+					setEmailError={setEmailError}
+				/>
+				<PasswordSubForm
+					password={password}
+					setPassword={setPassword}
+					type={"password"}
+					text={"password"}
+					passwordError={passwordError}
+					setPasswordError={setPasswordError}
+				/>
+				<SubmitButton isValid={isFormValid} handleSubmit={handleSubmit} />
+				<p
+					className="block text-center font-sans text-base font-normal leading-relaxed 
+        text-gray-700 antialiased link"
+				>
+					Belum punya akun?
+					<Link
+						href="/register-page"
+						className="ml-1 font-semibold text-gray-700 transition-colors hover:text-blue"
+					>
+						<span>Daftar</span>
+					</Link>
+				</p>
+			</div>
+		</form>
+	);
+};
+
+const Login = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	const [emailError, setEmailError] = useState("");
+	const [passwordError, setPasswordError] = useState("");
+
+	const [isFormValid, setIsFormValid] = useState(false);
+
+	const [showPopoverFailedLogin, setShowPopoverFailedLogin] = useState(false);
+	const [showPopoverNotExist, setShowPopoverNotExist] = useState(false);
+
+	useEffect(() => {
+		setIsFormValid(
+			email.trim() !== "" &&
+				password.trim() !== "" &&
+				emailError === "" &&
+				passwordError === ""
+		);
+	}, [setIsFormValid, email, password, emailError, passwordError]);
+
+	const hidePopoverFailedLogin = () => {
+		if (showPopoverFailedLogin) {
+			setShowPopoverFailedLogin(false);
 		} else {
-			return false;
+			setShowPopoverFailedLogin(true);
 		}
 	};
 
-	const cekEmail = () => {
-		if (email === "tes@gmail.com") {
-			// UBAH DISINI UNTK CEK KE DATABASE
-			return true;
+	const hidePopoverNotExist = () => {
+		if (showPopoverNotExist) {
+			setShowPopoverNotExist(false);
 		} else {
-			return false;
+			setShowPopoverNotExist(true);
 		}
 	};
 
-	const togglePopup = () => {
-		if (cekEmail() == false) {
-			if (cekPassword() == true) {
-				setEmailError("Email salah");
-				setshowPopupEmailSalah(!showPopupEmailSalah);
-			} else {
-				setEmailError("Email belum terdaftar");
-				setshowPopupBelumTerdaftar(!showPopupBelumTerdaftar);
-			}
+	const handleSubmit = () => {
+		const TEST_SUBMIT = false;
+		if (TEST_SUBMIT) {
+			setShowPopoverFailedLogin(true);
 		} else {
-			if (cekPassword() == false) {
-				setPasswordError("Password salah");
-				setshowPopupPasswordSalah(!showPopupPasswordSalah);
-			} else {
-				setshowPopupSuccess(!showPopupSuccess);
-			}
+			setShowPopoverNotExist(true);
 		}
+
+		/*
+    try {
+      const response = await axios.get(`${API_URL}/api/login`, {
+        email,
+        password,
+      });
+  
+      if (response.data.success) {
+        setShowPopupSuccess(true);
+      }
+    } catch (error) {
+      setShowPopupError(true);
+    }
+    */
 	};
 
 	return (
-		<div className="mx-auto flex flex-col">
-			<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center hero-image">
-				<Image
-					className="object-cover max-w-full h-auto"
-					src={LogoLogin}
-					alt="Login Logo"
-				/>
-			</div>
-			<div
-				className="flex min-h-window md:flex-row flex-col lg:px-52 md:px-32 
-				sm:px-20 py-20 justify-between items-center"
-				style={{ marginLeft: "500px" }}
-			>
-				<div className="flex md:flex-row md:gap-12 gap-1 flex-col items-center">
-					<div
-						className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none"
-						style={{ width: "650px", height: "87px", marginTop: "10px" }}
-					>
-						<h4
-							className="block font-zen-kaku-gothic-antique text-2xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
-							style={{ fontSize: "31.25px", color: "#424242" }}
-						>
+		<div className="flex justify-center items-center">
+			<div className="container mx-auto flex flex-col pt-20">
+				<div className="flex flex-row-reverse justify-between">
+					<Image
+						className="fixed top-[150px] left-0 w-[50rem]"
+						src={ImageHeroLogin}
+						alt="Image Hero Login"
+					/>
+
+					<div className="flex flex-col items-center justify-center pr-32">
+						<h1 className="text-2xl font-bold w-[550px]">
 							Kami senang melihatmu lagi! Masuk dan jelajahi pengalaman memesan
 							tiket event favoritmu dengan mudah
-						</h4>
+						</h1>
 						<Suspense fallback={<>Loading...</>}>
 							<LoginForm
-								handleSubmit={handleSubmit}
-								emailError={emailError}
 								email={email}
-								handleChangeEmail={handleChangeEmail}
-								password={password}
-								handleChangePassword={handleChangePassword}
-								passwordError={passwordError}
-								togglePopup={togglePopup}
-								showPopupSuccess={showPopupSuccess}
-								showPopupEmailSalah={showPopupEmailSalah}
-								showPopupPasswordSalah={showPopupPasswordSalah}
-								showPopupBelumTerdaftar={showPopupBelumTerdaftar}
-								fromParamEmail={searchParams}
 								setEmail={setEmail}
+								password={password}
+								setPassword={setPassword}
+								emailError={emailError}
+								setEmailError={setEmailError}
+								passwordError={passwordError}
+								setPasswordError={setPasswordError}
+								isFormValid={isFormValid}
+								handleSubmit={handleSubmit}
 							/>
 						</Suspense>
 					</div>
 				</div>
 			</div>
+			{showPopoverFailedLogin && (
+				<PopoverFailedLogin hidePopup={hidePopoverFailedLogin} />
+			)}
+			{showPopoverNotExist && (
+				<PopoverNotExist email={email} hidePopup={hidePopoverNotExist} />
+			)}
 		</div>
 	);
 };

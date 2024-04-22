@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Modal1Button from "@/components/Modal1Button";
 import { useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
-import IconHelpEmail from "../../../../public/images/IconHelpEmail.png";
-import IconHelpPhone from "../../../../public/images/IconHelpPhone.png";
+import IconHelpEmail from "../../../../public/images/IconHelpEmail.svg";
+import IconHelpPhone from "../../../../public/images/IconHelpPhone.svg";
 
 const Help = () => {
 	const [nama, setNama] = useState("");
