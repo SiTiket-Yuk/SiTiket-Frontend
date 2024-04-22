@@ -25,11 +25,12 @@ module.exports = {
 			colors: {
 				navbar: "#B0E3FF",
 				secondary: "#c17aa0",
-				blue: "#0075B4"
+				blue: "#0075B4",
 			},
 			textColor: {
 				blue: "#0075B4",
-				white: "#FFFFFF"
+				white: "#FFFFFF",
+				error: "#AC0000",
 			},
 		},
 	},
