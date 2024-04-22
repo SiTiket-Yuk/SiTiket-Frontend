@@ -27,7 +27,7 @@ const TabUnpaidEvents = ({ dataEvents }) => {
 	// GET Unpaid Events data and use Map method on the dataEvents to EventCardDashboard
 	return (
 		<>
-			{/* use dataEvents === null */}
+			{/* use dataEvents !== null */}
 			{true ? (
 				<ScrollShadow size={5} hideScrollBar className="h-[47.5rem]">
 					<div className="pt-5 flex flex-col gap-5">
@@ -80,7 +80,7 @@ const TabActiveEvents = ({ dataEvents }) => {
 	// GET Active Events data and use Map method on the dataEvents to PaidEventCardDashboard
 	return (
 		<>
-			{/* use dataEvents === null */}
+			{/* use dataEvents !== null */}
 			{true ? (
 				<ScrollShadow size={5} hideScrollBar className="h-[47.5rem]">
 					<div className="pt-5 flex flex-col gap-5">
@@ -115,7 +115,7 @@ const TabPastEvents = ({ dataEvents }) => {
 	// GET User's Past Events data and use Map method on the dataEvents to ???
 	return (
 		<>
-			{/* use dataEvents === null */}
+			{/* use dataEvents !== null */}
 			{dataEvents === null ? (
 				<div>{/* Infokan Component */}</div>
 			) : (
