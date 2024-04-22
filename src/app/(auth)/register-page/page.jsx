@@ -78,15 +78,13 @@ const UsernameSubForm = ({
 	};
 
 	return (
-		<>
-			<InputSubFormFactory
-				type={type}
-				data={username}
-				dataError={usernameError}
-				handleInputChange={handleUsernameChange}
-				text={text}
-			/>
-		</>
+		<InputSubFormFactory
+			type={type}
+			data={username}
+			dataError={usernameError}
+			handleInputChange={handleUsernameChange}
+			text={text}
+		/>
 	);
 };
 
@@ -117,15 +115,13 @@ const EmailSubForm = ({
 	};
 
 	return (
-		<>
-			<InputSubFormFactory
-				type={type}
-				data={email}
-				dataError={emailError}
-				handleInputChange={handleEmailChange}
-				text={text}
-			/>
-		</>
+		<InputSubFormFactory
+			type={type}
+			data={email}
+			dataError={emailError}
+			handleInputChange={handleEmailChange}
+			text={text}
+		/>
 	);
 };
 
@@ -151,15 +147,13 @@ const PasswordSubForm = ({
 	};
 
 	return (
-		<>
-			<InputSubFormFactory
-				type={type}
-				data={password}
-				handleInputChange={handlePasswordChange}
-				dataError={passwordError}
-				text={text}
-			/>
-		</>
+		<InputSubFormFactory
+			type={type}
+			data={password}
+			handleInputChange={handlePasswordChange}
+			dataError={passwordError}
+			text={text}
+		/>
 	);
 };
 
@@ -225,7 +219,10 @@ const RegisterFailedMessage = ({ togglePopup, email }) => {
 						Ubah email
 					</button>
 
-					<Link class="transition-colors" href={"/login-page"}>
+					<Link
+						class="transition-colors"
+						href={{ pathname: "/login-page", query: { userEmail: email } }}
+					>
 						<button
 							className="block w-[157px] h-[42px] select-none rounded-full bg-pink-400 
               text-white font-bold text-xs shadow-md transition-all hover:shadow-lg 
@@ -373,7 +370,6 @@ const RegisterForm = () => {
 					passwordError={passwordError}
 					setPasswordError={setPasswordError}
 				/>
-
 				<SubmitForm isValid={isFormValid} handleSubmit={handleSubmit} />
 				{showPopupSuccess && <RegisterSuccessMessage firstName={firstName} />}
 				{showPopupError && (

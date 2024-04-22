@@ -20,7 +20,16 @@ const LoginForm = ({
 	showPopupEmailSalah,
 	showPopupPasswordSalah,
 	showPopupBelumTerdaftar,
+	fromParamEmail,
+	setEmail,
 }) => {
+	useEffect(() => {
+		const fromURLEmail = fromParamEmail.get("userEmail");
+		if (fromURLEmail != null) {
+			setEmail(fromURLEmail);
+		}
+	}, [fromParamEmail, setEmail]);
+
 	return (
 		<form
 			className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
@@ -37,13 +46,19 @@ const LoginForm = ({
 					}}
 				>
 					<input
-						class="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
+						class="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 
+            font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 
+            placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
 						placeholder=" "
 						type="email"
 						value={email}
 						onChange={handleChangeEmail}
 					/>
-					<label className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]">
+					<label
+						className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 
+          flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none 
+          after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
+					>
 						Masukkan email
 					</label>
 					{emailError && emailError == "Masukkan format email yang sesuai" && (
@@ -72,12 +87,18 @@ const LoginForm = ({
 				>
 					<input
 						type="password"
-						className="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
+						className="peer h-full w-full rounded-full border border-[#d4a4be] bg-transparent px-6 py-3 
+            font-sans text-base font-normal text-[#414141] outline outline-0 transition-all placeholder-shown:border-2 
+            placeholder-shown:border-[#e7e7e7] focus:border-2 focus:border-[#d4a4be] disabled:border-0 disabled:bg-blue-gray-50"
 						placeholder=" "
 						value={password}
 						onChange={handleChangePassword}
 					/>
-					<label className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]">
+					<label
+						className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 -top-1 flex 
+          h-full w-full select-none text-[0px] text-[#929292] transition-all before:pointer-events-none 
+          after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
+					>
 						Masukkan password
 					</label>
 					{passwordError && passwordError == "Password minimal 8 karakter" && (
@@ -142,8 +163,8 @@ const LoginForm = ({
 						<div style={{ justifyContent: "center" }}>
 							<button
 								className="block w-[326px] h-[41px] select-none rounded-full bg-pink-400 text-white 
-                        font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2
-                      focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
+                font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2
+              focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans"
 								type="button"
 								style={{
 									marginTop: "70px",
@@ -340,7 +361,7 @@ const LoginForm = ({
 	);
 };
 
-const Login = ({ searchParams }) => {
+const Login = () => {
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
 	const [emailError, setEmailError] = useState("Masukkan email");
@@ -349,6 +370,8 @@ const Login = ({ searchParams }) => {
 	const [showPopupBelumTerdaftar, setshowPopupBelumTerdaftar] = useState(false);
 	const [showPopupEmailSalah, setshowPopupEmailSalah] = useState(false);
 	const [showPopupPasswordSalah, setshowPopupPasswordSalah] = useState(false);
+
+	const searchParams = useSearchParams();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -475,6 +498,8 @@ const Login = ({ searchParams }) => {
 								showPopupEmailSalah={showPopupEmailSalah}
 								showPopupPasswordSalah={showPopupPasswordSalah}
 								showPopupBelumTerdaftar={showPopupBelumTerdaftar}
+								fromParamEmail={searchParams}
+								setEmail={setEmail}
 							/>
 						</Suspense>
 					</div>
