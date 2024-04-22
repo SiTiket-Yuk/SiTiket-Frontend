@@ -2,18 +2,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import LogoDark from "../../../public/logo/LogoDark.png";
+import LogoDark from "../../../public/logo/LogoDark.svg";
 import ModalLogoutInDashboard from "../ModalLogoutInDashboard";
 import { useDisclosure } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
-import OnIconTiketSaya from "../../../public/images/OnIconTiketSaya.png";
-import OffIconTiketSaya from "../../../public/images/OffIconTiketSaya.png";
-import OnIconJelajahTiket from "../../../public/images/OnIconJelajahTiket.png";
-import OffIconJelajahTiket from "../../../public/images/OffIconJelajahTiket.png";
-import OnIconPengaturan from "../../../public/images/OnIconPengaturan.png";
-import OffIconPengaturan from "../../../public/images/OffIconPengaturan.png";
-import OnIconKeluar from "../../../public/images/OnIconKeluar.png";
-import OffIconKeluar from "../../../public/images/OffIconKeluar.png";
+import OnIconTiketSaya from "../../../public/images/OnIconTiketSaya.svg";
+import OffIconTiketSaya from "../../../public/images/OffIconTiketSaya.svg";
+import OnIconJelajahTiket from "../../../public/images/OnIconJelajahTiket.svg";
+import OffIconJelajahTiket from "../../../public/images/OffIconJelajahTiket.svg";
+import OnIconPengaturan from "../../../public/images/OnIconPengaturan.svg";
+import OffIconPengaturan from "../../../public/images/OffIconPengaturan.svg";
+import OnIconKeluar from "../../../public/images/OnIconKeluar.svg";
+import OffIconKeluar from "../../../public/images/OffIconKeluar.svg";
 
 const SectionButtonLinks = ({
 	isActive,

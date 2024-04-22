@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import IconFacebook from "../../../public/iconSosMed/IconFacebook.png";
-import IconTwitter from "../../../public/iconSosMed/IconTwitter.png";
-import IconInstagram from "../../../public/iconSosMed/IconInstagram.png";
+import IconFacebook from "../../../public/iconSosMed/IconFacebook.svg";
+import IconTwitter from "../../../public/iconSosMed/IconTwitter.svg";
+import IconInstagram from "../../../public/iconSosMed/IconInstagram.svg";
 
 const FooterBar = () => {
 	return (

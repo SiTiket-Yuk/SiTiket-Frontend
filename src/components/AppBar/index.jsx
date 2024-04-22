@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LogoLight from "../../../public/logo/LogoLight.png";
+import LogoLight from "../../../public/logo/LogoLight.svg";
 
 const AppBar = () => {
 	return (

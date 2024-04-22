@@ -10,8 +10,8 @@ import {
 	DropdownMenu,
 	DropdownItem,
 } from "@nextui-org/react";
-import LogoLight from "../../../public/logo/LogoLight.png";
-import IconTicket from "../../../public/images/IconTicket.png";
+import LogoLight from "../../../public/logo/LogoLight.svg";
+import IconTicket from "../../../public/images/IconTicket.svg";
 
 const NavigationBarSectionHyperLink = ({
 	pageName,
