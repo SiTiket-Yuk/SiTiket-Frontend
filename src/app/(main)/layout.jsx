@@ -26,7 +26,7 @@ const RootLayout = ({ children }) => {
 		<html lang="en">
 			<body className={dmSans.className}>
 				<Providers>
-					<NavigationBar userIsLoggedIn={true} userAvatar={AvatarDefault} />
+					<NavigationBar userIsLoggedIn={false} userAvatar={AvatarDefault} />
 					{children}
 					<FooterBar />
 				</Providers>

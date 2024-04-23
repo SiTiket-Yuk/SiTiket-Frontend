@@ -5,9 +5,10 @@ import LogoLogin from "../../../../public/logo/LogoLogin.png";
 import "./styles.css";
 import React, { Suspense, useEffect, useState } from "react";
 import { Popover, PopoverContent } from "@nextui-org/react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const LoginForm = ({
+	router,
 	handleSubmit,
 	emailError,
 	email,
@@ -362,6 +363,7 @@ const LoginForm = ({
 };
 
 const Login = () => {
+	const router = useRouter();
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
 	const [emailError, setEmailError] = useState("Masukkan email");
@@ -422,7 +424,7 @@ const Login = () => {
 	};
 
 	const cekPassword = () => {
-		if (password === "12345678") {
+		if (password === "12345678" || password === "admin123") {
 			// UBAH DISINI UNTK CEK KE DATABASE
 			return true;
 		} else {
@@ -431,7 +433,7 @@ const Login = () => {
 	};
 
 	const cekEmail = () => {
-		if (email === "tes@gmail.com") {
+		if (email === "tes@gmail.com" || email === "admin@gmail.com") {
 			// UBAH DISINI UNTK CEK KE DATABASE
 			return true;
 		} else {
@@ -454,6 +456,9 @@ const Login = () => {
 				setshowPopupPasswordSalah(!showPopupPasswordSalah);
 			} else {
 				setshowPopupSuccess(!showPopupSuccess);
+				if (email === "admin@gmail.com"){
+					router.push('/event-list');
+				}
 			}
 		}
 	};
@@ -486,6 +491,7 @@ const Login = () => {
 						</h4>
 						<Suspense fallback={<>Loading...</>}>
 							<LoginForm
+								router={router}
 								handleSubmit={handleSubmit}
 								emailError={emailError}
 								email={email}
