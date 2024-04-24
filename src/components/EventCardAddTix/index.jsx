@@ -1,13 +1,25 @@
 "use client";
 import React, { useState } from "react";
+import { useDisclosure } from "@nextui-org/react";
 import { Button, Card, CardBody, Divider } from "@nextui-org/react";
 import QuantityCounter from "@/components/EventQuantityCounter";
+import ModalLogin from "@/components/ModalLogin";
 import Link from "next/link";
+import ModalSignIn from "../ModalSignIn";
 
 const CardAddTix = ({ eventId, cost, quantityTicket }) => {
 	let initialAvailable = true;
 	const [available, setAvailable] = useState(initialAvailable);
 	const [isDisabled, setIsDisabled] = useState(!available);
+
+	// atur status loginConfirmation
+	const { isOpen, onOpen, onOpenChange } = useDisclosure();
+	const [loginConfirmation, setloginConfirmation] = useState(false);
+	const handleloginConfirmation = () => {
+		setloginConfirmation(true);
+	};
+
+
 	const [totalCost, setTotalCost] = useState(cost);
 	const [quantity, setQuantity] = useState(1);
 
@@ -36,17 +48,48 @@ const CardAddTix = ({ eventId, cost, quantityTicket }) => {
 				</div>
 			</CardBody>
 			<Divider />
-			<Button
-				fullWidth
-				radius="full"
-				className="font-semibold text-sm p-6 mb-6 mt-6 mx-auto"
-				style={{ backgroundColor: buttonColor, color: buttonTextColor }}
-				disabled={!available}
-			>
-				<Link href={`/payment-confirmation/${eventId}/${cost}/${quantity}`}>
-					{buttonText}
-				</Link>
-			</Button>
+			
+			{/* jika status login == false arahkan untuk login  */}
+				{!loginConfirmation && (
+				    <Button
+					    fullWidth
+					    radius="full"
+					    className="font-semibold text-sm p-6 mb-6 mt-6 mx-auto"
+					    style={{ backgroundColor: buttonColor, color: buttonTextColor }}
+					    disabled={!available}
+					    onPress={onOpen}
+				    >
+				        <Link href={`/payment-confirmation/${eventId}/${cost}/${quantity}`}>
+					        {buttonText}
+						</Link>
+			        </Button>
+					
+				)}
+
+				<ModalLogin
+					buttonName={"Masuk"}
+					isOpen={isOpen}
+					onOpenChange={onOpenChange}
+					onYesClick={handleloginConfirmation}
+					setLoginConfirmation={setloginConfirmation}
+				/>
+
+				{/* jika status login == true lanjutkan proses pembayaran */}
+				{loginConfirmation && (
+				    <Button
+					    fullWidth
+					    radius="full"
+					    className="font-semibold text-sm p-6 mb-6 mt-6 mx-auto"
+					    style={{ backgroundColor: buttonColor, color: buttonTextColor }}
+					    disabled={!available}
+					    onPress={onOpen}
+				    >
+				        <Link href={`/payment-confirmation/${eventId}/${cost}/${quantity}`}>
+					        {buttonText}
+						</Link>
+			        </Button>
+					
+				)}
 		</Card>
 	);
 };

@@ -60,7 +60,7 @@ const EventDetail = ({ params }) => {
 						<CardAddTix
 							eventId={eventId}
 							cost={eventData.cost}
-							quantityTicket={eventData.quantity}
+							quantityTicket={eventData.quantity}s
 						/>
 					)}
 
