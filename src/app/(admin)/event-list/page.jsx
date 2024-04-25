@@ -7,6 +7,7 @@ import {Avatar, Listbox, ListboxItem, ScrollShadow, Table, TableHeader, TableCol
 		useDisclosure, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, DatePicker} from "@nextui-org/react";
 import React, { useState} from 'react';
 import { useRouter } from "next/navigation";
+import Modal1Button from "@/components/Modal1Button";
 import Modal2Buttons from "@/components/Modal2Buttons";
 import {SearchIcon} from "../../../../public/logo/SearchIcon.jsx";
 import {EditIcon} from "../../../../public/logo/EditIcon.jsx";
@@ -93,7 +94,13 @@ const EventList = () => {
 
     const [isTiketSayaClicked, setIsTiketSayaClicked] = useState(true);
     const [isKeluarClicked, setIsKeluarClicked] = useState(false);
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const { isOpen: isOpenKeluar, onOpen: onOpenKeluar, onOpenChange: onOpenChangeKeluar } = useDisclosure();
+    const { isOpen: isOpenDeleteDraft, onOpen: onOpenDeleteDraft, onOpenChange: onOpenChangeDeleteDraft } = useDisclosure();
+    const { isOpen: isOpenDeletePublished, onOpen: onOpenDeletePublished, onOpenChange: onOpenChangeDeletePublished  } = useDisclosure();
+
+    const handleDelete = () => {
+        //EDIT DISINI BUAT HAPUS EVENT :D
+    }
 
     const router = useRouter();
 
@@ -110,6 +117,8 @@ const EventList = () => {
         setIsTiketSayaClicked(true);
         setIsKeluarClicked(false);
     };
+
+    const [eventPublished, setEventPublished] = useState(false);
 
 	const renderCell = React.useCallback((user, columnKey) => {
 		const cellValue = user[columnKey];
@@ -137,11 +146,20 @@ const EventList = () => {
 			return (
 				<p className="text-[#323C47] text-base">{cellValue}</p>
 			);
+
 		  case "aksi":
 			return (
 			  <div className="relative flex items-center gap-2">
-				<EditIcon/>
-				<DeleteIcon/>
+                <button>
+                    <Link href="/edit-event">
+                        <EditIcon/>
+                    </Link>
+                </button>
+				
+                <button onClick={eventPublished ? onOpenDeletePublished : onOpenDeleteDraft}>
+                    <DeleteIcon/>
+                </button>
+
 			  </div>
 			);
 		  default:
@@ -235,7 +253,7 @@ const EventList = () => {
                         onClick={() => {
                             handleKeluarClick();
                 
-                            onOpen();
+                            onOpenKeluar();
                         }}
                     >
                         <div
@@ -263,10 +281,10 @@ const EventList = () => {
 
                     <Modal2Buttons
                     message={"Apakah Anda yakin ingin keluar dari siTiket?"}
-                    isOpen={isOpen}
+                    isOpen={isOpenKeluar}
                     leftButton={"Ya"}
                     rightButton={"Kembali"}
-                    onOpenChange={onOpenChange}
+                    onOpenChange={onOpenChangeKeluar}
                     onYesClick={handleLogOut}
                     /> 
 
@@ -460,7 +478,9 @@ const EventList = () => {
 
                         <div className="h-full">
 							<Table removeWrapper color="secondary"
-        					selectionMode="multiple">
+        					selectionMode="multiple"
+                            disabledKeys={"aksi"}
+                            >
 							<TableHeader columns={columns}>
 								{(column) => (
 								<TableColumn className="text-base text-[#000000]" key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
@@ -481,6 +501,24 @@ const EventList = () => {
                     </div> 
                 </div>
             </div>
+                <Modal2Buttons
+                message={"Apakah Anda yakin ingin menghapus draft Event ini?"}
+                isOpen={isOpenDeleteDraft}
+                leftButton={"Ya"}
+                rightButton={"Kembali"}
+                onOpenChange={onOpenChangeDeleteDraft}
+                onYesClick={handleDelete}
+                /> 
+					
+
+                <Modal2Buttons
+                message={"Apakah Anda yakin ingin menghapus Event ini?"}
+                isOpen={isOpenDeletePublished}
+                leftButton={"Ya"}
+                rightButton={"Kembali"}
+                onOpenChange={onOpenChangeDeletePublished}
+                onYesClick={handleDelete}
+                />
         </div>
 	);  
 };

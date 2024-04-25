@@ -6,7 +6,7 @@ import Status from "../../../../public/logo/Status.svg";
 import Hapus from "../../../../public/logo/Hapus.svg";
 import LastEdit from "../../../../public/logo/LastEdit.svg";
 import AvatarDefault from "../../../../public/imageDefault/AvatarDefault.png";
-import {Avatar, DatePicker, useDisclosure, Checkbox, Textarea} from "@nextui-org/react";
+import {Avatar, DatePicker, useDisclosure, Checkbox, Textarea, DateRangePicker } from "@nextui-org/react";
 import React, { useState} from 'react';
 import { useRouter } from "next/navigation";
 import Modal1Buttons from "@/components/Modal1Button";
@@ -24,8 +24,7 @@ const AddEvent = () => {
     const [previewUrlOrganizerImage, setPreviewUrlOrganizerImage] = useState(null);
     const [harga, setHarga] = useState(null);
     const [jumlahTiket, setJumlahTiket] = useState(null);
-    const [mulaiJual, setMulaiJual] = React.useState(null);
-    const [akhirJual, setAkhirJual] = React.useState(null);
+    const [rentangJual, setRentangJual] = React.useState(null);
 
     const [judulError, setJudulError] = useState('Masukkan judul');
     const [dateError, setDateError] = useState('Masukkan tanggal');
@@ -36,8 +35,7 @@ const AddEvent = () => {
     const [organizerImageError, setOrganizerImageError] = useState('Masukkan gambar penyelenggara');
     const [hargaError, setHargaError] = useState('Masukkan harga');
     const [jumlahTiketError, setJumlahTiketError] = useState('Masukkan jumlah tiket');
-    const [mulaiJualError, setMulaiJualError] = useState('Masukkan tanggal mulai penjualan');
-    const [akhirJualError, setAkhirJualError] = useState('Masukkan tanggal akhir penjualan');
+    const [rentangJualError, setRentangJualError] = useState('Masukkan tanggal rentang penjualan');
 
     const [isTiketSayaClicked, setIsTiketSayaClicked] = useState(true);
     const [isKeluarClicked, setIsKeluarClicked] = useState(false);
@@ -52,12 +50,16 @@ const AddEvent = () => {
     const [isBisnisSelected, setIsBisnisSelected] = React.useState(false);
 
     const isDisabled =
-        judulError || dateError || tempatError || penyelenggaraError || deskripsiError ||
-        eventImageError || hargaError || jumlahTiketError || mulaiJualError || akhirJualError ||
+        judulError || dateError || tempatError || penyelenggaraError || deskripsiError || organizerImageError ||
+        eventImageError || hargaError || jumlahTiketError || rentangJualError ||
         (!isFestivalSelected && !isWebinarSelected && !isWorkshopSelected &&
         !isOlahragaSelected && !isBisnisSelected);
 
-    const handleSubmit = () => {
+    const handleSubmitDraft = () => {
+        // Logic untuk menangani penyerahan formulir
+    };
+
+    const handleSubmitPublish = () => {
         // Logic untuk menangani penyerahan formulir
     };
 
@@ -336,95 +338,160 @@ const AddEvent = () => {
                                                 Detail Event
                                             </div>
 
-                                            <div className="flex items-center">
-                                                <label className="mb-7" style={{ cursor: 'pointer', display: 'inline-block' }}>
-                                                    <input 
-                                                        className=" w-[572px] h-[205px] rounded-[10px] bg-[#E5E5E5] items-center justify-center flex"
-                                                        type="file"
-                                                        accept=".png, .jpg, .jpeg, .svg"
-                                                        onChange={handleEventImageChange}
-                                                    />
-
-                                                    {previewUrlEventImage && (
-                                                        <img src={previewUrlEventImage} alt="Event Image Preview" 
-                                                        className="-mt-[205px] w-[572px] h-[205px] rounded-[10px]"/>
-                                                    )}
-                                                </label>
-                                            </div>
-                                    
-                                            
-                                            
-                                            <div className="relative mb-14 text-base font-medium leading-5 w-[572px] h-[57px] text-neutral-700">
-                                                Judul
-                                                <input 
-                                                    type="text"
-                                                    value={judul}
-                                                    placeholder=" "
-                                                    onChange={handleChangeJudul}
-                                                    className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
-                                                    text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
-                                                    placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
-                                                />
-                                                <label
-                                                    className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
-                                                            h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
-                                                            after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
-                                                >
-                                                    Masukkan Judul
-                                                </label>
-                                            </div>
-
-                                            <div className="flex gap-5 justify-between mb-7 text-base leading-5 max-md:flex-wrap">
-                                                <div className="flex flex-col rounded-xl">
-                                                    <div className="font-medium text-neutral-700">Tanggal & Waktu</div>
-                                                    <DatePicker
-                                                        size="lg"
-                                                        variant="bordered"
-                                                        radius="md"
-                                                        isRequired
-                                                        granularity="minute"
-                                                        className="mt-3 w-[572px] text-[14px] justify-start flex border-neutral-200 text-neutral-400"
-                                                        color="secondary"
-                                                        value={date}
-                                                        onChange={(newValue) => {
-                                                            setDate(newValue);
-                                                            setDateError('');
-                                                        }}
-                                                    >
-                                                    </DatePicker>
-                                                </div>
-                                            </div>
-
-                                            <div className="relative mb-14 text-base font-medium leading-5 w-[572px] h-[57px] text-neutral-700">
-                                                Tempat
-                                                <input 
-                                                    type="text"
-                                                    value={tempat}
-                                                    placeholder=" "
-                                                    onChange={handleChangeTempat}
-                                                    className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
-                                                    text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
-                                                    placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
-                                                />
-                                                <label
-                                                    className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
-                                                            h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
-                                                            after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
-                                                >
-                                                    Masukkan Tempat
-                                                </label>
-                                            </div>
-
-                                            <div className="relative mb-14 text-base font-medium leading-5 w-[572px] h-[57px] text-neutral-700">
-                                                Penyelenggara
-                                                <div className="flex flex-row">
-                                                    <div>
+                                            <form>
+                                                <div className="flex items-center">
+                                                    <label className="mb-7" style={{ cursor: 'pointer', display: 'inline-block' }}>
                                                         <input 
-                                                            type="text"
-                                                            value={penyelenggara}
+                                                            className=" w-[572px] h-[205px] rounded-[10px] bg-[#E5E5E5] items-center justify-center flex"
+                                                            type="file"
+                                                            accept=".png, .jpg, .jpeg, .svg"
+                                                            onChange={handleEventImageChange}
+                                                        />
+
+                                                        {previewUrlEventImage && (
+                                                            <img src={previewUrlEventImage} alt="Event Image Preview" 
+                                                            className="-mt-[205px] w-[572px] h-[205px] rounded-[10px]"/>
+                                                        )}
+                                                    </label>
+                                                </div>
+                                        
+                                                
+                                                
+                                                <div className="relative mb-14 text-base font-medium leading-5 w-[572px] h-[57px] text-neutral-700">
+                                                    Judul
+                                                    <input 
+                                                        type="text"
+                                                        value={judul}
+                                                        placeholder=" "
+                                                        onChange={handleChangeJudul}
+                                                        className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
+                                                        text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
+                                                        placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
+                                                    />
+                                                    <label
+                                                        className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
+                                                                h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
+                                                                after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
+                                                    >
+                                                        Masukkan Judul
+                                                    </label>
+                                                </div>
+
+                                                <div className="flex gap-5 justify-between mb-7 text-base leading-5 max-md:flex-wrap">
+                                                    <div className="flex flex-col rounded-xl">
+                                                        <div className="font-medium text-neutral-700">Tanggal & Waktu</div>
+                                                        <DatePicker
+                                                            size="lg"
+                                                            variant="bordered"
+                                                            radius="md"
+                                                            isRequired
+                                                            granularity="minute"
+                                                            className="mt-3 w-[572px] text-[14px] justify-start flex border-neutral-200 text-neutral-400"
+                                                            color="secondary"
+                                                            value={date}
+                                                            onChange={(newValue) => {
+                                                                setDate(newValue);
+                                                                setDateError('');
+                                                            }}
+                                                        >
+                                                        </DatePicker>
+                                                    </div>
+                                                </div>
+
+                                                <div className="relative mb-14 text-base font-medium leading-5 w-[572px] h-[57px] text-neutral-700">
+                                                    Tempat
+                                                    <input 
+                                                        type="text"
+                                                        value={tempat}
+                                                        placeholder=" "
+                                                        onChange={handleChangeTempat}
+                                                        className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
+                                                        text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
+                                                        placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
+                                                    />
+                                                    <label
+                                                        className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
+                                                                h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
+                                                                after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
+                                                    >
+                                                        Masukkan Tempat
+                                                    </label>
+                                                </div>
+
+                                                <div className="relative mb-14 text-base font-medium leading-5 w-[572px] h-[57px] text-neutral-700">
+                                                    Penyelenggara
+                                                    <div className="flex flex-row">
+                                                        <div>
+                                                            <input 
+                                                                type="text"
+                                                                value={penyelenggara}
+                                                                placeholder=" "
+                                                                onChange={handleChangePenyelenggara}
+                                                                className="peer justify-center items-start px-6 py-3.5 mt-4 w-[498.52px] bg-white rounded-xl border border-solid border-[#d4a4be]
+                                                                text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
+                                                                placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
+                                                            />
+                                                            <label
+                                                                className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
+                                                                        h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
+                                                                        after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
+                                                            >
+                                                                Masukkan Penyelenggara
+                                                            </label>
+                                                        </div>
+
+                                                        <div className="flex items-center">
+                                                            <label style={{ cursor: 'pointer', display: 'inline-block' }}>
+                                                                <input 
+                                                                    className="shrink-0 aspect-[1.04] w-[57px] ml-4 mt-4 bg-[#E5E5E5] rounded-full"
+                                                                    type="file"
+                                                                    accept=".png, .jpg, .jpeg, .svg"
+                                                                    onChange={handleOrganizerImageChange}
+                                                                />
+
+                                                                {previewUrlOrganizerImage && (
+                                                                    <img src={previewUrlOrganizerImage} alt="Organizer Image Preview" 
+                                                                    className="-mt-[55px] ml-4 aspect-[1.04] w-[57px] rounded-full"/>
+                                                                )}
+                                                            </label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div className="relative text-base font-medium leading-5 w-[572px] min-h-[57px] text-neutral-700">
+                                                    Deskripsi
+                                                    <Textarea
+                                                        variant="bordered"
+                                                        minRows={1}
+                                                        size="lg"
+                                                        color="secondary"
+                                                        radius="md"
+                                                        value={deskripsi}
+                                                        onChange={handleChangeDeskripsi}
+                                                        placeholder="Tuliskan Deskripsi Event"
+                                                        className="mt-4"
+                                                    />
+                                                </div>
+                                            </form>                    
+                                        </div>
+
+                                        <div className="shrink-0 mt-5 px-6 pt-6 bg-white rounded-lg border border-gray-200 border-solid h-[314px]">
+                                            <div className="pb-4 mb-6 w-[506px] text-lg font-medium leading-5 text-neutral-700 border-b border-[#EBEBEB]">
+                                                Detail Tiket
+                                            </div>
+
+                                            <form>
+                                                <div className="flex flex-row gap-7">
+                                                    <div className="relative mb-14 text-base font-medium leading-5 w-[270px] h-[57px] text-neutral-700">
+                                                        Harga
+                                                        <input 
+                                                            type="number"
+                                                            value={harga}
                                                             placeholder=" "
-                                                            onChange={handleChangePenyelenggara}
-                                                            className="peer justify-center items-start px-6 py-3.5 mt-4 w-[498.52px] bg-white rounded-xl border border-solid border-[#d4a4be]
+                                                            min={0}
+                                                            onChange={handleChangeHarga}
+                                                            className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
                                                             text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
                                                             placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
                                                         />
@@ -433,133 +500,52 @@ const AddEvent = () => {
                                                                     h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
                                                                     after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
                                                         >
-                                                            Masukkan Penyelenggara
+                                                            Masukkan Harga
                                                         </label>
                                                     </div>
 
-                                                    <div className="flex items-center">
-                                                        <label style={{ cursor: 'pointer', display: 'inline-block' }}>
-                                                            <input 
-                                                                className="shrink-0 aspect-[1.04] w-[57px] ml-4 mt-4 bg-[#E5E5E5] rounded-full"
-                                                                type="file"
-                                                                accept=".png, .jpg, .jpeg, .svg"
-                                                                onChange={handleOrganizerImageChange}
-                                                            />
-
-                                                            {previewUrlOrganizerImage && (
-                                                                <img src={previewUrlOrganizerImage} alt="Organizer Image Preview" 
-                                                                className="-mt-[55px] ml-4 aspect-[1.04] w-[57px] rounded-full"/>
-                                                            )}
+                                                    <div className="relative mb-14 text-base font-medium leading-5 w-[270px] h-[57px] text-neutral-700">
+                                                        Jumlah Tiket
+                                                        <input 
+                                                            type="number"
+                                                            value={jumlahTiket}
+                                                            placeholder=" "
+                                                            min={0}
+                                                            onChange={handleChangeJumlahTiket}
+                                                            className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
+                                                            text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
+                                                            placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
+                                                        />
+                                                        <label
+                                                            className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
+                                                                    h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
+                                                                    after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
+                                                        >
+                                                            Jumlah Tiket Tersedia
                                                         </label>
                                                     </div>
-                                                    
-                                                </div>
-                                            </div>
-
-                                            <div className="relative text-base font-medium leading-5 w-[572px] min-h-[57px] text-neutral-700">
-                                                Deskripsi
-                                                <Textarea
-                                                    variant="bordered"
-                                                    minRows={1}
-                                                    size="lg"
-                                                    color="secondary"
-                                                    radius="md"
-                                                    value={deskripsi}
-                                                    onChange={handleChangeDeskripsi}
-                                                    placeholder="Tuliskan Deskripsi Event"
-                                                    className="mt-4"
-                                                />
-                                            </div>
-
-                                        </div>
-
-                                        <div className="shrink-0 mt-5 px-6 pt-6 bg-white rounded-lg border border-gray-200 border-solid h-[314px]">
-                                            <div className="pb-4 mb-6 w-[506px] text-lg font-medium leading-5 text-neutral-700 border-b border-[#EBEBEB]">
-                                                Detail Tiket
-                                            </div>
-
-                                            <div className="flex flex-row gap-7">
-                                                <div className="relative mb-14 text-base font-medium leading-5 w-[270px] h-[57px] text-neutral-700">
-                                                    Harga
-                                                    <input 
-                                                        type="number"
-                                                        value={harga}
-                                                        placeholder=" "
-                                                        min={0}
-                                                        onChange={handleChangeHarga}
-                                                        className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
-                                                        text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
-                                                        placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
-                                                    />
-                                                    <label
-                                                        className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
-                                                                h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
-                                                                after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
-                                                    >
-                                                        Masukkan Harga
-                                                    </label>
                                                 </div>
 
-                                                <div className="relative mb-14 text-base font-medium leading-5 w-[270px] h-[57px] text-neutral-700">
-                                                    Jumlah Tiket
-                                                    <input 
-                                                        type="number"
-                                                        value={jumlahTiket}
-                                                        placeholder=" "
-                                                        min={0}
-                                                        onChange={handleChangeJumlahTiket}
-                                                        className="peer justify-center items-start px-6 py-3.5 mt-4 w-full bg-white rounded-xl border border-solid border-[#d4a4be]
-                                                        text-[#414141] max-md:px-5 max-md:max-w-full outline outline-0 transition-all placeholder-shown:border-2 
-                                                        placeholder-shown:border-neutral-200 focus:border-2 focus:border-[#d4a4be] disabled:bg-blue-gray-50"
-                                                    />
-                                                    <label
-                                                        className="before:content[' '] after:content[' '] pointer-events-none absolute left-6 top-7 flex 
-                                                                h-full w-full select-none text-[0px] text-[#929292] before:pointer-events-none 
-                                                                after:pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:leading-[4.1] peer-focus:text-[0px]"
-                                                    >
-                                                        Jumlah Tiket Tersedia
-                                                    </label>
+                                                <div className="flex flex-row gap-7">
+                                                    <div className="relative mb-14 text-base font-medium leading-5 h-[57px] text-neutral-700">
+                                                        Rentang Penjualan
+                                                        <DateRangePicker 
+                                                            size="lg"
+                                                            variant="bordered"
+                                                            radius="md"
+                                                            isRequired
+                                                            className="mt-3 w-[568px] text-[14px] justify-start flex border-neutral-200 text-neutral-400"
+                                                            color="secondary"
+                                                            value={rentangJual}
+                                                            onChange={(newValue) => {
+                                                                setRentangJual(newValue);
+                                                                setRentangJualError('');
+                                                            }}
+                                                        >
+                                                        </DateRangePicker >
+                                                    </div> 
                                                 </div>
-                                            </div>
-
-                                            <div className="flex flex-row gap-7">
-                                                <div className="relative mb-14 text-base font-medium leading-5 w-[270px] h-[57px] text-neutral-700">
-                                                    Mulai Penjualan
-                                                    <DatePicker
-                                                        size="lg"
-                                                        variant="bordered"
-                                                        radius="md"
-                                                        isRequired
-                                                        className="mt-3 w-[270px] text-[14px] justify-start flex border-neutral-200 text-neutral-400"
-                                                        color="secondary"
-                                                        value={mulaiJual}
-                                                        onChange={(newValue) => {
-                                                            setMulaiJual(newValue);
-                                                            setMulaiJualError('');
-                                                        }}
-                                                    >
-                                                    </DatePicker>
-                                                </div>
-
-                                                <div className="relative mb-14 text-base font-medium leading-5 w-[270px] h-[57px] text-neutral-700">
-                                                    Akhir Penjualan
-                                                    <DatePicker
-                                                        size="lg"
-                                                        variant="bordered"
-                                                        radius="md"
-                                                        isRequired
-                                                        className="mt-3 w-[270px] text-[14px] justify-start flex border-neutral-200 text-neutral-400"
-                                                        color="secondary"
-                                                        value={akhirJual}
-                                                        onChange={(newValue) => {
-                                                            setAkhirJual(newValue);
-                                                            setAkhirJualError('');
-                                                        }}
-                                                    >
-                                                    </DatePicker>
-                                                </div>
-                                            </div>
-                                            
+                                            </form>
                                         </div>
 
                                     </div>
@@ -610,7 +596,10 @@ const AddEvent = () => {
                                                             color: isDisabled ? '#A5A5A5' : "#FFFFFF",
                                                         }}
                                                         data-ripple-light="true"
-                                                        onClick={onOpenModalDraft}
+                                                        onClick={() => {
+                                                            onOpenModalDraft(newValue);
+                                                            handleSubmitDraft();
+                                                        }}
                                                         disabled={isDisabled}
                                                     >
                                                         Simpan Draft
@@ -626,7 +615,10 @@ const AddEvent = () => {
                                                             color: isDisabled ? '#A5A5A5' : "#FFFFFF",
                                                         }}
                                                         data-ripple-light="true"
-                                                        onClick={onOpenModalPublish}
+                                                        onClick={() => {
+                                                            onOpenModalPublish(newValue);
+                                                            handleSubmitPublish();
+                                                        }}
                                                         disabled={isDisabled}
                                                     >
                                                         Publish
@@ -654,53 +646,55 @@ const AddEvent = () => {
                                             <div className="pb-4 mb-4 max-md:w-full text-lg font-medium leading-5 text-neutral-700 border-b border-[#EBEBEB]">
                                                 Kategori
                                             </div>
+                                            
+                                            <form>           
+                                                <div className="flex flex-col gap-4">
+                                                    <Checkbox 
+                                                        isSelected={isFestivalSelected} 
+                                                        color="secondary" 
+                                                        radius="sm"
+                                                        onValueChange={setIsFestivalSelected}
+                                                    >
+                                                        Festival
+                                                    </Checkbox>
 
-                                            <div className="flex flex-col gap-4">
-                                                <Checkbox 
-                                                    isSelected={isFestivalSelected} 
-                                                    color="secondary" 
-                                                    radius="sm"
-                                                    onValueChange={setIsFestivalSelected}
-                                                >
-                                                    Festival
-                                                </Checkbox>
+                                                    <Checkbox 
+                                                        isSelected={isWebinarSelected} 
+                                                        color="secondary" 
+                                                        radius="sm"
+                                                        onValueChange={setIsWebinarSelected}
+                                                    >
+                                                        Webinar
+                                                    </Checkbox>
 
-                                                <Checkbox 
-                                                    isSelected={isWebinarSelected} 
-                                                    color="secondary" 
-                                                    radius="sm"
-                                                    onValueChange={setIsWebinarSelected}
-                                                >
-                                                    Webinar
-                                                </Checkbox>
+                                                    <Checkbox 
+                                                        isSelected={isWorkshopSelected} 
+                                                        color="secondary" 
+                                                        radius="sm"
+                                                        onValueChange={setIsWorkshopSelected}
+                                                    >
+                                                        Workshop
+                                                    </Checkbox>
 
-                                                <Checkbox 
-                                                    isSelected={isWorkshopSelected} 
-                                                    color="secondary" 
-                                                    radius="sm"
-                                                    onValueChange={setIsWorkshopSelected}
-                                                >
-                                                    Workshop
-                                                </Checkbox>
+                                                    <Checkbox 
+                                                        isSelected={isOlahragaSelected} 
+                                                        color="secondary" 
+                                                        radius="sm"
+                                                        onValueChange={setIsOlahragaSelected}
+                                                    >
+                                                        Olahraga
+                                                    </Checkbox>
 
-                                                <Checkbox 
-                                                    isSelected={isOlahragaSelected} 
-                                                    color="secondary" 
-                                                    radius="sm"
-                                                    onValueChange={setIsOlahragaSelected}
-                                                >
-                                                    Olahraga
-                                                </Checkbox>
-
-                                                <Checkbox 
-                                                    isSelected={isBisnisSelected} 
-                                                    color="secondary" 
-                                                    radius="sm"
-                                                    onValueChange={setIsBisnisSelected}
-                                                >
-                                                    Bisnis
-                                                </Checkbox>
-                                            </div>               
+                                                    <Checkbox 
+                                                        isSelected={isBisnisSelected} 
+                                                        color="secondary" 
+                                                        radius="sm"
+                                                        onValueChange={setIsBisnisSelected}
+                                                    >
+                                                        Bisnis
+                                                    </Checkbox>
+                                                </div>  
+                                            </form>              
                                         </div>
                                     </div>
                                 </div>

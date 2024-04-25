@@ -14,7 +14,7 @@ const users = [
     tanggal : "14/04/2024",
     judul : "Indonesian Pharmacy Expo and Conference",
     penyelenggara : "SwipeRX IPEC",
-    kategori : "webinar",
+    kategori : "Webinar",
     status : "Published",
   },
 ];
