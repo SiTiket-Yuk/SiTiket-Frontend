@@ -37,7 +37,6 @@ const MyTiket = async () => {
 		}
 	} catch (e) {
 		console.log(e);
-		console.log("ERRROOOOORRR");
 	}
 
 	return <EventTabs fetchedData={fetchedData} uid={uid} />;

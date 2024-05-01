@@ -1,12 +1,52 @@
 "use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardFooter, Divider, Button } from "@nextui-org/react";
-import Modal2Buttons from "@/components/Modal2Buttons";
-import { useDisclosure } from "@nextui-org/react";
-import InformationMsg from "../InformationMessage";
+import {
+	Card,
+	CardBody,
+	CardFooter,
+	Divider,
+	Button,
+	useDisclosure,
+	Modal,
+	ModalContent,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+} from "@nextui-org/react";
 import axios from "axios";
+import Modal2Buttons from "@/components/Modal2Buttons";
+import InformationMsg from "../InformationMessage";
+import SuccessBuy from "../../../public/images/SuccessBuy.svg";
 
 const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
+
+const ModalBuySuccess = ({ isOpen, onOpenChange, eventId }) => {
+	const router = useRouter();
+
+	return (
+		<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+			<ModalContent className="p-8 text-sm">
+				<ModalHeader className="flex flex-col text-center font-bold text-xl">
+					Pembayaran berhasil!
+				</ModalHeader>
+				<ModalBody className="text-center">
+					<Image alt={"Success Buy"} src={SuccessBuy} />
+				</ModalBody>
+				<ModalFooter className="flex flex-row justify-center">
+					<Button
+						radius="full"
+						color="secondary"
+						onPress={() => router.push(`/event-detail/${eventId}`)}
+					>
+						Cetak tiket elektronik
+					</Button>
+				</ModalFooter>
+			</ModalContent>
+		</Modal>
+	);
+};
 
 const NominalFactory = ({ label, nominal, type }) => {
 	return (
@@ -24,7 +64,8 @@ const NominalFactory = ({ label, nominal, type }) => {
 };
 
 const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
-	const { isOpen, onOpen, onOpenChange } = useDisclosure();
+	const modalConfirm = useDisclosure();
+	const modalBuySuccess = useDisclosure();
 
 	// atur status paymentConfirmation, paymentReminder
 	const [paymentConfirmation, setPaymentConfirmation] = useState(false);
@@ -51,7 +92,7 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 
 		try {
 			const response = await axios.post(
-				`${SITIKET_API}/api/event/registerUser/`,
+				`${SITIKET_API}/api/event/registerUser`,
 				{
 					uid: uid,
 					id: eventId,
@@ -61,9 +102,9 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 			);
 
 			if (response.status === 200) {
-				console.log(response.data);
-				setPaymentConfirmation(true);
-				setPaymentReminder(true);
+				//setPaymentConfirmation(true);
+				//setPaymentReminder(true);
+				modalBuySuccess.onOpen();
 			}
 		} catch (e) {
 			console.log(e);
@@ -71,7 +112,7 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 	};
 
 	const handleCloseInformationMsg = () => {
-		setPaymentConfirmation(false);
+		//setPaymentConfirmation(false);
 	};
 
 	const platformFee = 0;
@@ -163,7 +204,7 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 							color="secondary"
 							className="font-semibold text-sm p-6 mx-auto"
 							fullWidth
-							onPress={onOpen}
+							onPress={modalConfirm.onOpen}
 							style={{ display: paymentReminder ? "none" : "flex" }}
 						>
 							Bayar Tiket
@@ -172,11 +213,17 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 
 					<Modal2Buttons
 						message={"Apakah Anda yakin ingin membeli tiket ini?"}
-						isOpen={isOpen}
+						isOpen={modalConfirm.isOpen}
 						leftButton={"Ya"}
 						rightButton={"Tidak"}
-						onOpenChange={onOpenChange}
+						onOpenChange={modalConfirm.onOpenChange}
 						onYesClick={handleConfirmPayment}
+					/>
+
+					<ModalBuySuccess
+						isOpen={modalBuySuccess.isOpen}
+						onOpenChange={modalBuySuccess.onOpenChange}
+						eventId={eventId}
 					/>
 				</CardFooter>
 			</Card>

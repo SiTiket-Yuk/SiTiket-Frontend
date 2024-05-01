@@ -54,6 +54,7 @@ const TabActiveEvents = ({ dataEvents }) => {
 						{dataEvents.map((event, index) => (
 							<PaidEventCardDashboard
 								key={index}
+								eventId={event.dataEvents.eventId}
 								eventImg={event.dataEvents.image}
 								eventName={event.dataEvents.eventName}
 								date={event.dataEvents.timelimit}
@@ -82,6 +83,7 @@ const TabPastEvents = ({ dataEvents }) => {
 						{dataEvents.map((event, index) => (
 							<PaidEventCardDashboard
 								key={index}
+								eventId={event.dataEvents.eventId}
 								eventImg={event.dataEvents.image}
 								eventName={event.dataEvents.eventName}
 								date={event.dataEvents.timelimit}
@@ -109,13 +111,13 @@ const EventTabs = ({ fetchedData }) => {
 
 	useEffect(() => {
 		const date = new Date().toJSON().slice(0, 10);
-		const currentDate = new Date(date).getTime();
+		const currentDate = new Date(date);
 
 		const fetchUserEvents = async () => {
 			for (const eventId in fetchedData) {
 				if (fetchedData[eventId].status === "Lunas") {
-					const eventDate = new Date(fetchedData[eventId].timelimit).getTime();
-					if (eventDate > currentDate) {
+					const eventDate = new Date(fetchedData[eventId].timelimit);
+					if (currentDate > eventDate) {
 						setPastEvents((prevEvents) => [
 							...prevEvents,
 							{ dataEvents: fetchedData[eventId], eventId: eventId },
@@ -141,6 +143,8 @@ const EventTabs = ({ fetchedData }) => {
 			fetchUserEvents();
 		}
 	}, [fetchedData]);
+
+	console.log(fetchedData);
 
 	return (
 		<div className="grow">
@@ -171,9 +175,9 @@ const EventTabs = ({ fetchedData }) => {
 								"group-data-[selected=true]:text-[#0075B4] group-data-[selected=true]:font-bold",
 						}}
 					>
-						<Tab key={"unpaidEvent"} title={"Belum Bayar"}>
+						{/*<Tab key={"unpaidEvent"} title={"Belum Bayar"}>
 							<TabUnpaidEvents dataEvents={unpaidEvents} />
-						</Tab>
+						</Tab>*/}
 						<Tab key="activeEvent" title="Event Aktif">
 							<TabActiveEvents dataEvents={activeEvents} />
 						</Tab>
@@ -189,7 +193,7 @@ const EventTabs = ({ fetchedData }) => {
 					</div>
 				</div>
 			)}
-			<p className="text-end text-[#929292] text-lg pr-10">
+			<p className="text-end text-[#929292] text-lg pr-10 pb-4">
 				Copyright © 2024 siTiket All Rights Reserved
 			</p>
 		</div>

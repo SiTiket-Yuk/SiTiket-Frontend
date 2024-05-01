@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Card, CardBody, Divider, CardFooter, Avatar } from "@nextui-org/react";
 
 const PaidEventCardDashboard = ({
+	eventId,
 	eventImg,
 	eventName,
 	organizerLogo,
@@ -16,13 +17,13 @@ const PaidEventCardDashboard = ({
 			className="border max-w-[720px]"
 			style={{ boxShadow: "0px 1px 4px 0px rgba(25, 33, 71, 0.08)" }}
 		>
-			<Link href={"#"}>
+			<Link href={`/event-detail/${eventId}`}>
 				<CardBody className="flex flex-row gap-4">
 					<div
 						style={{
 							width: "350px",
 							height: "200px",
-							background: `url(${eventImg.src}) center/cover no-repeat`,
+							background: `url(${eventImg}) center/cover no-repeat`,
 							borderRadius: "10px",
 						}}
 					>
@@ -39,7 +40,7 @@ const PaidEventCardDashboard = ({
 						</div>
 						<Divider />
 						<CardFooter className="flex gap-4">
-							<Avatar radius="full" size="md" src={organizerLogo.src} />
+							<Avatar radius="full" size="md" src={organizerLogo} />
 							<h4>{organizerName}</h4>
 						</CardFooter>
 					</div>

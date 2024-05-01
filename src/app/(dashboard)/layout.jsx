@@ -1,11 +1,15 @@
-import { DM_Sans } from "next/font/google";
 import "../globals.css";
+import { redirect } from "next/navigation";
+import { DM_Sans } from "next/font/google";
 import SideNavigationBar from "@/components/SideNavigationBar";
 import { Providers } from "../nextuiproviders";
 import { getSession } from "../lib/session";
-import { redirect } from "next/navigation";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
+
+export const metadata = {
+	title: "Dashboard",
+};
 
 const RootLayout = async ({ children }) => {
 	const session = await getSession();

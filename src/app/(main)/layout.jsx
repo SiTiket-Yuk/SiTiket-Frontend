@@ -1,5 +1,5 @@
-import { DM_Sans } from "next/font/google";
 import "../globals.css";
+import { DM_Sans } from "next/font/google";
 import NavigationBar from "@/components/NavigationBar";
 import FooterBar from "@/components/FooterBar";
 import { Providers } from "../nextuiproviders";

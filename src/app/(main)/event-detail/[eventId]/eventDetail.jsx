@@ -26,7 +26,7 @@ const EventDetail = ({ fetchedData }) => {
 			setUserTicketOwned(fetchedData.ticketOwned);
 		}
 
-		if (fetchedData.status === true) {
+		if (fetchedData.status === "Lunas") {
 			setPaidStatus(true);
 		}
 

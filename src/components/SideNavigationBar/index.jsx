@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useDisclosure } from "@nextui-org/react";
 import LogoLight from "../../../public/logo/LogoLight.svg";
 import ModalLogoutInDashboard from "../ModalLogoutInDashboard";
-import { useDisclosure } from "@nextui-org/react";
-import { usePathname } from "next/navigation";
 import OnIconTiketSaya from "../../../public/images/OnIconTiketSaya.svg";
 import OffIconTiketSaya from "../../../public/images/OffIconTiketSaya.svg";
 import OnIconJelajahTiket from "../../../public/images/OnIconJelajahTiket.svg";
@@ -179,10 +179,9 @@ const SideNavigationBar = () => {
 
 	return (
 		<div
-			className="relative w-[344px] h-screen bg-primary"
+			className="bg-primary px-16"
 			style={{
 				boxShadow: "0px 2px 6px 0px rgba(20, 20, 43, 0.06)",
-				borderBottomRightRadius: "32px",
 			}}
 		>
 			<div className="flex items-center mt-[50px]">
