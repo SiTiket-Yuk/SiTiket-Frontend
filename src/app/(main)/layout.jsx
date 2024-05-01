@@ -2,8 +2,8 @@ import { DM_Sans } from "next/font/google";
 import "../globals.css";
 import NavigationBar from "@/components/NavigationBar";
 import FooterBar from "@/components/FooterBar";
-import { Providers } from "../providers";
-import AvatarDefault from "../../../public/imageDefault/AvatarDefault.png";
+import { Providers } from "../nextuiproviders";
+import { getSession } from "../lib/session";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -17,16 +17,20 @@ export const metadata = {
 		"dari seminar dan lokakarya hingga konser dan pertunjukan serta acara digital.",
 };
 
-const RootLayout = ({ children }) => {
-	/*
-	Handle User is authenticated or not in here
-	*/
+const RootLayout = async ({ children }) => {
+	const session = await getSession();
+	let isLoggedIn;
+	if (session === null) {
+		isLoggedIn = false;
+	} else {
+		isLoggedIn = true;
+	}
 
 	return (
 		<html lang="en">
 			<body className={dmSans.className}>
 				<Providers>
-					<NavigationBar userIsLoggedIn={true} userAvatar={AvatarDefault} />
+					<NavigationBar isLoggedIn={isLoggedIn} />
 					{children}
 					<FooterBar />
 				</Providers>

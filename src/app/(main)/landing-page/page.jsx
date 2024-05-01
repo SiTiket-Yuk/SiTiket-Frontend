@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import { FaArrowRight } from "react-icons/fa";
 import EventsFeaturedList from "@/components/EventsFeaturedList";
@@ -20,14 +21,16 @@ const LandingPage = () => {
 					alt={"Event Poster"}
 				/>
 				<EventsOngoingThisWeek />
-				<Button
-					radius="full"
-					color="secondary"
-					endContent={<FaArrowRight />}
-					className="font-semibold text-base p-7 mb-10 mx-auto"
-				>
-					Jelajahi lebih banyak event
-				</Button>
+				<Link href={"/discovery"} className="mx-auto">
+					<Button
+						radius="full"
+						color="secondary"
+						endContent={<FaArrowRight />}
+						className="font-semibold text-base p-7 mb-10 mx-auto"
+					>
+						Jelajahi lebih banyak event
+					</Button>
+				</Link>
 			</div>
 		</>
 	);
