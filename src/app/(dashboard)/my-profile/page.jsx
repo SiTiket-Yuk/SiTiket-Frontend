@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { Avatar } from "@nextui-org/react";
 import InformationMessage from "@/components/InformationMessage";
 import AvatarDefault from "../../../../public/imageDefault/AvatarDefault.png";
-import { Avatar } from "@nextui-org/react";
-import React, { useState, useEffect } from "react";
 
 const InputFactory = ({ type, data, handleChangeInput, inputError, text }) => {
 	return (
