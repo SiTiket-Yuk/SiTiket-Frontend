@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, CardBody, Divider } from "@nextui-org/react";
 import QuantityCounter from "@/components/EventQuantityCounter";
+import ModalLogin from "@/components/ModalLogin";
 import Link from "next/link";
+import ModalSignIn from "../ModalSignIn";
 
 const CardAddTix = ({ eventId, cost, quantityTicket, date }) => {
 	let initialAvailable = true;
