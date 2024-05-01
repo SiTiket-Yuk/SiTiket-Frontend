@@ -20,12 +20,13 @@ module.exports = {
 				overview: "#F8F8F8",
 				warning: "#b5618d",
 				blue: "#0075B4",
-				disabled: "#929292",
+				danger: "#929292",
 			},
 			colors: {
 				navbar: "#B0E3FF",
-				secondary: "#c17aa0",
+				secondary: "#B05F8A",
 				blue: "#0075B4",
+				disabled: "#929292",
 			},
 			textColor: {
 				blue: "#0075B4",

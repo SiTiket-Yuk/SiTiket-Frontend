@@ -1,5 +1,3 @@
-"useclient";
-import React, { useEffect } from "react";
 import {
 	Modal,
 	ModalContent,
@@ -33,13 +31,23 @@ export default function Modal2Buttons({
 								{title}
 							</ModalHeader>
 							<ModalBody className="text-center">
-								<p>{message}</p>
+								<p className="font-bold text-xl">{message}</p>
 							</ModalBody>
 							<ModalFooter className="flex flex-row justify-center">
-								<Button color="secondary" onPress={handleYesClick}>
+								<Button
+									radius="full"
+									className="flex-grow"
+									color="secondary"
+									onPress={handleYesClick}
+								>
 									{leftButton}
 								</Button>
-								<Button color="secondary" onPress={onClose}>
+								<Button
+									radius="full"
+									className="flex-grow"
+									color="secondary"
+									onPress={onClose}
+								>
 									{rightButton}
 								</Button>
 							</ModalFooter>

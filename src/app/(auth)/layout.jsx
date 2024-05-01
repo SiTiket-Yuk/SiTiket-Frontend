@@ -1,15 +1,30 @@
-import { DM_Sans } from "next/font/google";
 import "../globals.css";
+import { DM_Sans } from "next/font/google";
+import { redirect } from "next/navigation";
+import { Providers } from "../nextuiproviders";
+import { getSession } from "../lib/session";
 import AppBar from "@/components/AppBar";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
-const RootLayout = ({ children }) => {
+export const metadata = {
+	title: "Daftar Akun SiTiket",
+};
+
+const RootLayout = async ({ children }) => {
+	const session = await getSession();
+
+	if (session) {
+		redirect("/landing-page");
+	}
+
 	return (
 		<html lang="en">
 			<body className={dmSans.className}>
-				<AppBar />
-				{children}
+				<Providers>
+					<AppBar />
+					{children}
+				</Providers>
 			</body>
 		</html>
 	);

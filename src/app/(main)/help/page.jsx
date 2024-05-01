@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
-import Modal1Button from "@/components/Modal1Button";
-import { useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
+import React, { useState } from "react";
+import { useDisclosure } from "@nextui-org/react";
+import Modal1Button from "@/components/Modal1Button";
 import IconHelpEmail from "../../../../public/images/IconHelpEmail.svg";
 import IconHelpPhone from "../../../../public/images/IconHelpPhone.svg";
 
@@ -31,10 +31,7 @@ const Help = () => {
 		setNama("");
 		setEmail("");
 		setPesan("");
-
-		//EDIT UNTUK CONNECT KE DATABASE
-		// Kirim formulir jika input valid
-		// ...
+		onOpen();
 	};
 
 	const handleChangeNama = (event) => {
@@ -130,10 +127,7 @@ const Help = () => {
 							</div>
 						</div>
 					</div>
-					<form
-						className="w-[634px] h-[532px] ml-[22px]"
-						onSubmit={handleSubmit}
-					>
+					<form className="w-[634px] h-[532px] ml-[22px]">
 						<div
 							className="flex flex-col h- p-8 text-sm font-medium leading-5 bg-white rounded-lg 
               border border-solid shadow-sm border-slate-200 max-w-[634px] text-neutral-700 max-md:px-5"
@@ -275,7 +269,7 @@ const Help = () => {
 											? "#A5A5A5"
 											: "#FFFFFF",
 								}}
-								onClick={onOpen}
+								onClick={handleSubmit}
 							>
 								Kirim pesan
 							</button>

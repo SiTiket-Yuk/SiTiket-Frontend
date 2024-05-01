@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import LogoDark from "../../../public/logo/LogoDark.svg";
-import ModalLogoutInDashboard from "../ModalLogoutInDashboard";
 import { useDisclosure } from "@nextui-org/react";
-import { usePathname, useRouter } from "next/navigation";
+import LogoLight from "../../../public/logo/LogoLight.svg";
+import ModalLogoutInDashboard from "../ModalLogoutInDashboard";
 import OnIconTiketSaya from "../../../public/images/OnIconTiketSaya.svg";
 import OffIconTiketSaya from "../../../public/images/OffIconTiketSaya.svg";
 import OnIconJelajahTiket from "../../../public/images/OnIconJelajahTiket.svg";
@@ -24,11 +24,7 @@ const SectionButtonLinks = ({
 	onSectionlinkClick,
 }) => {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
-	const router = useRouter();
-	const handleLogOut = () => {
-		// Add Logout Logic Here, [Remove Session, and others]
-		router.push("/login-page");
-	};
+
 	const handleClick = () => {
 		onSectionlinkClick();
 	};
@@ -39,7 +35,7 @@ const SectionButtonLinks = ({
 				<Link href={`/${link}`}>
 					<button
 						className={`flex py-3 w-[229px] ${
-							isActive ? "bg-white" : "bg-[#f9f9f9]"
+							isActive ? "bg-white" : "bg-primary"
 						} rounded-[15px] gap-4 items-center`}
 						style={{
 							boxShadow: isActive
@@ -71,7 +67,7 @@ const SectionButtonLinks = ({
 						</div>
 						<h2
 							className={`font-medium text-medium lg:text-base ${
-								isActive ? "" : "text-[#b6b6b6]"
+								isActive ? "" : "text-white"
 							}`}
 						>
 							<span>{label}</span>
@@ -82,7 +78,7 @@ const SectionButtonLinks = ({
 				<>
 					<button
 						className={`flex py-3 w-[229px] ${
-							isActive ? "bg-white" : "bg-[#f9f9f9]"
+							isActive ? "bg-white" : "bg-primary"
 						} rounded-[15px] gap-4 items-center`}
 						style={{
 							boxShadow: isActive
@@ -90,7 +86,8 @@ const SectionButtonLinks = ({
 								: "none",
 						}}
 						onClick={() => {
-							handleClick(), onOpen();
+							handleClick();
+							onOpen();
 						}}
 					>
 						<div
@@ -116,7 +113,7 @@ const SectionButtonLinks = ({
 						</div>
 						<h2
 							className={`font-medium text-medium lg:text-base ${
-								isActive ? "" : "text-[#b6b6b6]"
+								isActive ? "" : "text-white"
 							}`}
 						>
 							<span>{label}</span>
@@ -129,7 +126,6 @@ const SectionButtonLinks = ({
 						leftButton={"Ya"}
 						rightButton={"Kembali"}
 						onOpenChange={onOpenChange}
-						onYesClick={handleLogOut}
 					/>
 				</>
 			)}
@@ -183,10 +179,9 @@ const SideNavigationBar = () => {
 
 	return (
 		<div
-			className="relative w-[344px] h-screen bg-[#f9f9f9]"
+			className="bg-primary px-16"
 			style={{
 				boxShadow: "0px 2px 6px 0px rgba(20, 20, 43, 0.06)",
-				borderBottomRightRadius: "32px",
 			}}
 		>
 			<div className="flex items-center mt-[50px]">
@@ -194,10 +189,10 @@ const SideNavigationBar = () => {
 					<Link href="/" className="flex flex-row items-center">
 						<Image
 							className="object-cover h-13 w-12"
-							src={LogoDark}
+							src={LogoLight}
 							alt="SiTiket Logo"
 						/>
-						<div className="flex flex-row pl-2 text-black text-3xl">
+						<div className="flex flex-row pl-2 text-white text-3xl">
 							si<div className="font-bold">tiket</div>
 						</div>
 					</Link>

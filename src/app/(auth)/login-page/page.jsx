@@ -1,14 +1,19 @@
 "use client";
+import ImageHeroLogin from "../../../../public/images/ImageHeroLogin.svg";
 import Image from "next/image";
 import Link from "next/link";
-import ImageHeroLogin from "../../../../public/images/ImageHeroLogin.svg";
-import "./styles.css";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import { Button, Popover, PopoverContent } from "@nextui-org/react";
-import { useSearchParams } from "next/navigation";
-import InputSubFormFactory from "@/components/InputSubFormFactory/InputSubFormFactory";
+import axios from "axios";
+import InputFormFactory from "@/components/InputFormFactory";
 
-const EmailSubForm = ({
+const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
+
+/*
+  Email input 
+*/
+const EmailInputForm = ({
 	email,
 	setEmail,
 	type,
@@ -35,7 +40,7 @@ const EmailSubForm = ({
 	};
 
 	return (
-		<InputSubFormFactory
+		<InputFormFactory
 			type={type}
 			data={email}
 			dataError={emailError}
@@ -45,7 +50,10 @@ const EmailSubForm = ({
 	);
 };
 
-const PasswordSubForm = ({
+/*
+  Password input 
+*/
+const PasswordInputForm = ({
 	password,
 	setPassword,
 	type,
@@ -67,7 +75,7 @@ const PasswordSubForm = ({
 	};
 
 	return (
-		<InputSubFormFactory
+		<InputFormFactory
 			type={type}
 			data={password}
 			handleInputChange={handlePasswordChange}
@@ -77,6 +85,9 @@ const PasswordSubForm = ({
 	);
 };
 
+/*
+  Popover that show failed login 
+*/
 const PopoverFailedLogin = ({ hidePopup }) => {
 	return (
 		<Popover backdrop="opaque">
@@ -89,8 +100,8 @@ const PopoverFailedLogin = ({ hidePopup }) => {
 					<p className="font-medium">Silahkan coba lagi</p>
 				</div>
 				<Button
-					className="block w-full py-3 select-none rounded-full text-white font-bold 
-          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+					className="block w-full py-3 select-none rounded-full text-white 
+          font-bold text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
           focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
 					type="button"
 					data-ripple-light="true"
@@ -103,6 +114,9 @@ const PopoverFailedLogin = ({ hidePopup }) => {
 	);
 };
 
+/*
+  Popover that show the inputed form email, is already exist
+*/
 const PopoverNotExist = ({ email, hidePopup }) => {
 	return (
 		<Popover backdrop="opaque">
@@ -116,8 +130,8 @@ const PopoverNotExist = ({ email, hidePopup }) => {
 					<Link href="/register-page">
 						<Button
 							className="w-[150px] py-3 select-none rounded-full text-white font-bold 
-          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
-          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+              text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+              focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
 							type="button"
 							data-ripple-light="true"
 						>
@@ -126,8 +140,8 @@ const PopoverNotExist = ({ email, hidePopup }) => {
 					</Link>
 					<Button
 						className="w-[150px] py-3 select-none rounded-full text-white font-bold 
-          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
-          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+            text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+            focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
 						type="button"
 						data-ripple-light="true"
 						onPress={hidePopup}
@@ -140,6 +154,9 @@ const PopoverNotExist = ({ email, hidePopup }) => {
 	);
 };
 
+/*
+  Button is clickable if Form is valid
+*/
 const SubmitButton = ({ isValid, handleSubmit }) => {
 	return (
 		<Button
@@ -175,7 +192,7 @@ const LoginForm = ({
 	handleSubmit,
 }) => {
 	const searchParams = useSearchParams();
-
+	// Get email if user redirects from register PopoverEmailExist (\(auth)\register-page)
 	const emailFromRegister = searchParams.get("userEmail");
 	if (emailFromRegister != null) {
 		setEmail(emailFromRegister);
@@ -184,7 +201,7 @@ const LoginForm = ({
 	return (
 		<form className="mt-8 mb-2 max-w-screen-lg w-full">
 			<div className="mb-4 flex flex-col gap-10 relative">
-				<EmailSubForm
+				<EmailInputForm
 					email={email}
 					setEmail={setEmail}
 					type={"text"}
@@ -192,7 +209,7 @@ const LoginForm = ({
 					emailError={emailError}
 					setEmailError={setEmailError}
 				/>
-				<PasswordSubForm
+				<PasswordInputForm
 					password={password}
 					setPassword={setPassword}
 					type={"password"}
@@ -230,6 +247,9 @@ const Login = () => {
 	const [showPopoverFailedLogin, setShowPopoverFailedLogin] = useState(false);
 	const [showPopoverNotExist, setShowPopoverNotExist] = useState(false);
 
+	const router = useRouter();
+
+	// Check every inputed data changes, until its valid
 	useEffect(() => {
 		setIsFormValid(
 			email.trim() !== "" &&
@@ -255,28 +275,33 @@ const Login = () => {
 		}
 	};
 
-	const handleSubmit = () => {
-		const TEST_SUBMIT = false;
-		if (TEST_SUBMIT) {
-			setShowPopoverFailedLogin(true);
-		} else {
-			setShowPopoverNotExist(true);
+	const handleSubmit = async () => {
+		try {
+			// POST user login
+			const response = await axios.post(`${SITIKET_API}/api/login`, {
+				email: email,
+				password: password,
+			});
+			if (response.status === 200) {
+				// Create user session
+				const res = await fetch("/api/create-session", {
+					method: "POST",
+					body: JSON.stringify({ user: response.data.uid }),
+				});
+				if (res.status === 200) {
+					router.push("/landing-page");
+				} else {
+					console.error("Failed to create session");
+				}
+			}
+		} catch (e) {
+			console.log(e);
+			if (e.response.status === 400) {
+				setShowPopoverFailedLogin(true);
+			} else if (e.response.status === 500) {
+				alert("server error, try again");
+			}
 		}
-
-		/*
-    try {
-      const response = await axios.get(`${API_URL}/api/login`, {
-        email,
-        password,
-      });
-  
-      if (response.data.success) {
-        setShowPopupSuccess(true);
-      }
-    } catch (error) {
-      setShowPopupError(true);
-    }
-    */
 	};
 
 	return (
@@ -288,7 +313,6 @@ const Login = () => {
 						src={ImageHeroLogin}
 						alt="Image Hero Login"
 					/>
-
 					<div className="flex flex-col items-center justify-center pr-32">
 						<h1 className="text-2xl font-bold w-[550px]">
 							Kami senang melihatmu lagi! Masuk dan jelajahi pengalaman memesan

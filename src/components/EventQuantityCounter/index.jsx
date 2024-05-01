@@ -28,7 +28,6 @@ const QuantityCounter = ({
 	};
 
 	const increaseQuantity = () => {
-		console.log(quantityTicket);
 		if (quantity >= 1 && quantity <= quantityTicket) {
 			setQuantity(quantity + 1);
 			setTotalCost(totalCost + eventCost);

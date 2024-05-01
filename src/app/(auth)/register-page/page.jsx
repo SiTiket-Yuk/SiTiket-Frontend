@@ -1,13 +1,19 @@
 "use client";
+import ImageHeroRegister from "../../../../public/images/ImageHeroRegister.svg";
 import Image from "next/image";
 import Link from "next/link";
-import ImageHeroRegister from "../../../../public/images/ImageHeroRegister.svg";
-import "./styles.css";
+import { useRouter } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import { Button, Popover, PopoverContent } from "@nextui-org/react";
-import InputSubFormFactory from "@/components/InputSubFormFactory/InputSubFormFactory";
+import axios from "axios";
+import InputFormFactory from "@/components/InputFormFactory";
 
-const UsernameSubForm = ({
+const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
+
+/*
+  Username input 
+*/
+const UsernameInputForm = ({
 	username,
 	setUsername,
 	type,
@@ -27,7 +33,7 @@ const UsernameSubForm = ({
 	};
 
 	return (
-		<InputSubFormFactory
+		<InputFormFactory
 			type={type}
 			data={username}
 			dataError={usernameError}
@@ -37,7 +43,10 @@ const UsernameSubForm = ({
 	);
 };
 
-const EmailSubForm = ({
+/*
+  Email input 
+*/
+const EmailInputForm = ({
 	email,
 	setEmail,
 	type,
@@ -64,7 +73,7 @@ const EmailSubForm = ({
 	};
 
 	return (
-		<InputSubFormFactory
+		<InputFormFactory
 			type={type}
 			data={email}
 			dataError={emailError}
@@ -74,7 +83,10 @@ const EmailSubForm = ({
 	);
 };
 
-const PasswordSubForm = ({
+/*
+  Password input 
+*/
+const PasswordInputForm = ({
 	password,
 	setPassword,
 	type,
@@ -96,7 +108,7 @@ const PasswordSubForm = ({
 	};
 
 	return (
-		<InputSubFormFactory
+		<InputFormFactory
 			type={type}
 			data={password}
 			handleInputChange={handlePasswordChange}
@@ -106,6 +118,46 @@ const PasswordSubForm = ({
 	);
 };
 
+/*
+  Password confirm input
+*/
+const PasswordConfirmInputForm = ({
+	password,
+	passwordConfirm,
+	setPasswordConfirm,
+	type,
+	text,
+	passwordConfirmError,
+	setPasswordConfirmError,
+}) => {
+	const handlePasswordConfirmChange = (event) => {
+		const { value } = event.target;
+		setPasswordConfirm(value);
+
+		if (value !== password) {
+			setPasswordConfirmError("Password tidak sesuai");
+		} else {
+			setPasswordConfirmError("");
+		}
+	};
+
+	return (
+		<InputFormFactory
+			type={type}
+			data={passwordConfirm}
+			handleInputChange={handlePasswordConfirmChange}
+			dataError={passwordConfirmError}
+			text={text}
+		/>
+	);
+};
+
+/*
+  Popover that show the email is already exist
+  Options:
+  1. Re-enter account with different email
+  2. To Login Page
+*/
 const PopoverEmailExist = ({ email, hidePopup }) => {
 	return (
 		<Popover backdrop="opaque">
@@ -118,8 +170,8 @@ const PopoverEmailExist = ({ email, hidePopup }) => {
 				<div className="flex flex-row gap-5">
 					<Button
 						className="w-[150px] py-3 select-none rounded-full text-white font-bold 
-          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
-          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+            text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+            focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
 						type="button"
 						data-ripple-light="true"
 						onPress={hidePopup}
@@ -129,8 +181,8 @@ const PopoverEmailExist = ({ email, hidePopup }) => {
 					<Link href={{ pathname: "/login-page", query: { userEmail: email } }}>
 						<Button
 							className="w-[150px] py-3 select-none rounded-full text-white font-bold 
-          text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
-          focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
+              text-xs shadow-md transition-all hover:shadow-lg focus:outline-none 
+              focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 font-dm-sans bg-secondary"
 							type="button"
 							data-ripple-light="true"
 						>
@@ -160,7 +212,7 @@ const SubmitButton = ({ isValid, handleSubmit }) => {
 			data-ripple-light="true"
 			onPress={handleSubmit}
 		>
-			Masuk
+			Daftar
 		</Button>
 	);
 };
@@ -172,19 +224,25 @@ const RegisterForm = ({
 	setEmail,
 	password,
 	setPassword,
+	passwordConfirm,
+	setPasswordConfirm,
 	usernameError,
 	setUsernameError,
 	emailError,
 	setEmailError,
 	passwordError,
 	setPasswordError,
+	passwordConfirmError,
+	setPasswordConfirmError,
 	isFormValid,
 	handleSubmit,
 }) => {
+	const router = useRouter();
+
 	return (
 		<form className="mt-8 mb-2 max-w-screen-lg w-full">
 			<div className="mb-4 flex flex-col gap-10 relative">
-				<UsernameSubForm
+				<UsernameInputForm
 					username={username}
 					setUsername={setUsername}
 					type={"text"}
@@ -192,7 +250,7 @@ const RegisterForm = ({
 					usernameError={usernameError}
 					setUsernameError={setUsernameError}
 				/>
-				<EmailSubForm
+				<EmailInputForm
 					email={email}
 					setEmail={setEmail}
 					type={"text"}
@@ -200,7 +258,7 @@ const RegisterForm = ({
 					emailError={emailError}
 					setEmailError={setEmailError}
 				/>
-				<PasswordSubForm
+				<PasswordInputForm
 					password={password}
 					setPassword={setPassword}
 					type={"password"}
@@ -208,57 +266,71 @@ const RegisterForm = ({
 					passwordError={passwordError}
 					setPasswordError={setPasswordError}
 				/>
+				<PasswordConfirmInputForm
+					password={password}
+					passwordConfirm={passwordConfirm}
+					setPasswordConfirm={setPasswordConfirm}
+					type={"password"}
+					text={"password"}
+					passwordConfirmError={passwordConfirmError}
+					setPasswordConfirmError={setPasswordConfirmError}
+				/>
 				<SubmitButton isValid={isFormValid} handleSubmit={handleSubmit} />
 				<p
 					className="block text-center font-sans text-base font-normal leading-relaxed 
         text-gray-700 antialiased link"
 				>
 					Sudah punya akun?
-					<Link
-						href="/login-page"
-						className="ml-1 font-semibold text-gray-700 transition-colors hover:text-blue"
+					<span
+						className="ml-1 font-semibold text-gray-700 transition-colors hover:text-blue cursor-pointer"
+						onClick={() => router.push("/login-page")}
 					>
-						<span>Masuk</span>
-					</Link>
+						Masuk
+					</span>
 				</p>
 			</div>
 		</form>
 	);
 };
 
-const Login = () => {
+const Register = () => {
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [passwordConfirm, setPasswordConfirm] = useState("");
 
 	const [usernameError, setUsernameError] = useState("");
 	const [emailError, setEmailError] = useState("");
 	const [passwordError, setPasswordError] = useState("");
+	const [passwordConfirmError, setPasswordConfirmError] = useState("");
 
 	const [isFormValid, setIsFormValid] = useState(false);
 
 	const [showPopoverFailedLogin, setShowPopoverEmailExist] = useState(false);
 
+	// Check every inputed data changes, until its valid
 	useEffect(() => {
 		setIsFormValid(
 			username.trim() !== "" &&
 				email.trim() !== "" &&
 				password.trim() !== "" &&
+				passwordConfirm.trim() !== "" &&
 				usernameError === "" &&
 				emailError === "" &&
-				passwordError === ""
+				passwordError === "" &&
+				passwordConfirmError === ""
 		);
 	}, [
 		setIsFormValid,
 		username,
 		email,
 		password,
+		passwordConfirm,
 		usernameError,
 		emailError,
 		passwordError,
+		passwordConfirmError,
 	]);
-
-	console.log(isFormValid);
 
 	const hidePopoverEmailExist = () => {
 		if (showPopoverFailedLogin) {
@@ -268,23 +340,37 @@ const Login = () => {
 		}
 	};
 
-	const handleSubmit = () => {
-		setShowPopoverEmailExist(true);
+	const router = useRouter();
 
-		/*
-    try {
-      const response = await axios.get(`${API_URL}/api/login`, {
-        email,
-        password,
-      });
-  
-      if (response.data.success) {
-        setShowPopupSuccess(true);
-      }
-    } catch (error) {
-      setShowPopupError(true);
-    }
-    */
+	const handleSubmit = async () => {
+		try {
+			// Post user register
+			const response = await axios.post(`${SITIKET_API}/api/register`, {
+				username: username,
+				email: email,
+				password: password,
+			});
+			console.log(response.data);
+			if (response.status === 200) {
+				// CREATE: session
+				const res = await fetch("/api/create-session", {
+					method: "POST",
+					body: JSON.stringify({ userId: response.data.uid }),
+				});
+				if (res.status === 200) {
+					router.push("/landing-page");
+				} else {
+					console.error("Failed to create session");
+				}
+			}
+		} catch (e) {
+			console.log(e);
+			if (e.response.status === 400) {
+				setShowPopoverEmailExist(true);
+			} else if (e.response.status === 500) {
+				alert("server error, try again");
+			}
+		}
 	};
 
 	return (
@@ -296,7 +382,6 @@ const Login = () => {
 						src={ImageHeroRegister}
 						alt="Image Hero Register"
 					/>
-
 					<div className="flex flex-col items-center justify-center pl-32">
 						<h1 className="text-2xl font-bold w-[550px]">
 							Buat akun dan pesan tiket event favoritmu dengan mudah!
@@ -309,12 +394,16 @@ const Login = () => {
 								setEmail={setEmail}
 								password={password}
 								setPassword={setPassword}
+								passwordConfirm={passwordConfirm}
+								setPasswordConfirm={setPasswordConfirm}
 								usernameError={usernameError}
 								setUsernameError={setUsernameError}
 								emailError={emailError}
 								setEmailError={setEmailError}
 								passwordError={passwordError}
 								setPasswordError={setPasswordError}
+								passwordConfirmError={passwordConfirmError}
+								setPasswordConfirmError={setPasswordConfirmError}
 								isFormValid={isFormValid}
 								handleSubmit={handleSubmit}
 							/>
@@ -329,4 +418,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Register;

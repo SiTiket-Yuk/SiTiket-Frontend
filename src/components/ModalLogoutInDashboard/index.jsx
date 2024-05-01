@@ -6,6 +6,7 @@ import {
 	ModalFooter,
 	Button,
 } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 const ModalLogoutInDashboard = ({
 	title,
@@ -14,11 +15,20 @@ const ModalLogoutInDashboard = ({
 	rightButton,
 	isOpen,
 	onOpenChange,
-	onYesClick,
 }) => {
-	const handleYesClick = () => {
-		onYesClick();
-		onOpenChange(false);
+	const router = useRouter();
+	const handleLogout = async () => {
+		const res = await fetch("/api/delete-session", {
+			method: "DELETE",
+		});
+
+		if (!res.ok) {
+			console.error("Failed to delete session:", res.statusText);
+			return;
+		}
+
+		// Redirect to the login page
+		router.push("/login-page");
 	};
 
 	return (
@@ -36,7 +46,7 @@ const ModalLogoutInDashboard = ({
 							<ModalFooter className="flex flex-row justify-center">
 								<Button
 									color="secondary"
-									onPress={handleYesClick}
+									onPress={handleLogout}
 									className="block w-[157px] h-[42px] select-none rounded-full text-white font-bold text-xs 
                   shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#B05F8A] 
                   focus:ring-opacity-50 font-dm-sans"
@@ -46,8 +56,8 @@ const ModalLogoutInDashboard = ({
 								<Button
 									color="secondary"
 									onPress={onClose}
-									className="ml-3 block w-[157px] h-[42px] select-none rounded-full text-white font-bold text-xs s
-                  hadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#B05F8A] 
+									className="ml-3 block w-[157px] h-[42px] select-none rounded-full text-white font-bold text-xs
+                  shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#B05F8A] 
                   focus:ring-opacity-50 font-dm-sans"
 								>
 									{rightButton}

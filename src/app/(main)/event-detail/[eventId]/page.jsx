@@ -1,75 +1,66 @@
-"use client";
-import Image from "next/image";
-import React, { useState } from "react";
-import EventDescription from "@/components/EventDescription";
-import Breadcrumbs from "@/components/BreadcrumbssNav";
-import CategoryBar from "@/components/CategoryBar";
-import CardDetail from "@/components/EventCardDetail";
-import CardAddTix from "@/components/EventCardAddTix";
-import CardPrintETicket from "@/components/EventCardPrintEticket";
-import { eventDummyData } from "@/data/eventsJSON";
+import { getSession } from "@/app/lib/session";
+import axios from "axios";
+import EventDetail from "./eventDetail";
 
-const EventDetail = ({ params }) => {
-	// atur state tiket = sudah dimiliki/belum
-	const [ticketOwned, setticketOwned] = useState(false);
-	const handleticketOwned = () => {
-		setticketOwned(true);
-	};
-	// With Dummy Data
+const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
+
+const EventDetailPage = async ({ params }) => {
+	const session = await getSession();
+	const uid = session.userSession.uid;
+
+	// Requested Event Detail
 	const eventId = params.eventId;
-	const eventData = eventDummyData.filter((event) => event.id == eventId)[0];
 
-	return (
-		<div className="container mx-auto max-w-[1100px]">
-			<Breadcrumbs
-				link1={"#"}
-				link2={"#"}
-				link3={"#"}
-				pageName1={"Home"}
-				pageName2={"Webinar"}
-				pageName3={eventData.name}
-			/>
-			<div className="flex flex-column gap-10 mb-32">
-				<div className="basis-3/4">
-					<div>
-						<Image
-							width="0"
-							height="0"
-							sizes="100vw"
-							className="w-full h-auto"
-							src={eventData.post}
-							alt={eventData.name}
-						/>
-					</div>
-					<EventDescription eventDesc={eventData.description} />
-					<CategoryBar categories={eventData.categories}></CategoryBar>
-				</div>
-				<div className="ml-8 flex flex-col gap-8 basis-1/4">
-					<CardDetail
-						eventName={eventData.name}
-						date={eventData.date}
-						time={eventData.time}
-						quantity={eventData.quantity}
-						place={eventData.place}
-						organizerLogo={eventData.organizerLogo.src}
-						organizerName={eventData.organizerName}
-					/>
+	// Returned value
+	let fetchedData = {
+		isRegistered: false,
+		ticketOwned: 0,
+		status: false,
+		eventData: {},
+	};
 
-					{/* jika tiket blm dimiliki user, tampilkan section beli tiket */}
-					{!ticketOwned && (
-						<CardAddTix
-							eventId={eventId}
-							cost={eventData.cost}
-							quantityTicket={eventData.quantity}
-						/>
-					)}
+	try {
+		// Check event if registered already
+		const response = await axios.get(`${SITIKET_API}/api/user/${uid}`);
+		if (response.status === 200) {
+			const userEvents = response.data.user.registeredevents;
+			// User doesn't have any registerd events
+			if (userEvents === undefined || userEvents === null) {
+				fetchedData.isRegistered = false;
+			}
 
-					{/* jika tiket sudah dimiliki user, tampilkan section cetak tiket elektronik */}
-					{ticketOwned && <CardPrintETicket quantity={"1"} />}
-				</div>
-			</div>
-		</div>
-	);
+			// Check every registered events that are same as eventId
+			for (const event in userEvents) {
+				if (eventId === event) {
+					fetchedData.isRegistered = true;
+					fetchedData.status = userEvents[event].status;
+					fetchedData.ticketOwned = Number(userEvents[event].ticket);
+					break;
+				}
+			}
+
+			const responseEvent = await axios.get(
+				`${SITIKET_API}/api/event/${eventId}`
+			);
+
+			if (responseEvent.status === 200) {
+				const dataResponse = responseEvent.data.event;
+				const eventAsset = await axios.get(
+					`${SITIKET_API}/api/image/asset/${eventId}`
+				);
+				dataResponse["image"] = eventAsset.data.asset[0];
+				dataResponse["logo"] = eventAsset.data.asset[1];
+				fetchedData.eventData = dataResponse;
+
+				fetchedData.eventData.eventId = eventId;
+			}
+		}
+	} catch (e) {
+		console.log(e);
+		console.log("Error Fetching Data");
+	}
+
+	return <EventDetail fetchedData={fetchedData} />;
 };
 
-export default EventDetail;
+export default EventDetailPage;

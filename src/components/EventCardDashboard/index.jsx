@@ -21,7 +21,7 @@ const CardDashboard = ({
 						style={{
 							width: "350px",
 							height: "200px",
-							background: `url(${eventImg.src}) center/cover no-repeat`,
+							background: `url(${eventImg}) center/cover no-repeat`,
 							borderRadius: "10px",
 						}}
 					>
@@ -38,7 +38,9 @@ const CardDashboard = ({
 						<Divider />
 						<div className="flex flex-row justify-between items-center">
 							<p className="font-bold text-lg mt-4 pb-2">Total Bayar</p>
-							<p className="font-bold text-lg mt-4 pb-2">Rp. {totalPayment}</p>
+							<p className="font-bold text-lg mt-4 pb-2">
+								Rp. {totalPayment.toLocaleString("id-ID")}
+							</p>
 						</div>
 						<p className="text-sm self-center text-gray-400 pb-2">
 							Selesaikan pembayaran sebelum {paymentDeadline}

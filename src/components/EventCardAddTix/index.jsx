@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, CardBody, Divider } from "@nextui-org/react";
 import QuantityCounter from "@/components/EventQuantityCounter";
+import ModalLogin from "@/components/ModalLogin";
 import Link from "next/link";
+import ModalSignIn from "../ModalSignIn";
 
-const CardAddTix = ({ eventId, cost, quantityTicket }) => {
+const CardAddTix = ({ eventId, cost, quantityTicket, date }) => {
 	let initialAvailable = true;
 	const [available, setAvailable] = useState(initialAvailable);
 	const [isDisabled, setIsDisabled] = useState(!available);
@@ -16,6 +18,15 @@ const CardAddTix = ({ eventId, cost, quantityTicket }) => {
 		? "Lanjutkan Pembayaran"
 		: "Tiket Tidak Tersedia";
 	const buttonTextColor = "#FFFFFF";
+
+	useEffect(() => {
+		const currentDate = new Date();
+		if (currentDate > new Date(date)) {
+			setAvailable(true);
+		} else {
+			setIsDisabled(true);
+		}
+	}, [setAvailable, date]);
 
 	return (
 		<Card className="lg:w-[360px] md:w-[150px] p-7">
