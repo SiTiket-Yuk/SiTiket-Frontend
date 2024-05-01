@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { Card, CardBody, Divider } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { PiTicketLight } from "react-icons/pi";
 import { useDisclosure } from "@nextui-org/react";
 import Modal1Button from "../Modal1Button";
-import { Card, CardBody, Divider } from "@nextui-org/react";
 
-const CardPrintETicket = ({ quantity }) => {
+const CardPrintETicket = ({ quantity, status }) => {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	return (
 		<Card className="lg:w-[360px] md:w-[300px] p-7">
@@ -21,11 +21,12 @@ const CardPrintETicket = ({ quantity }) => {
 				</CardBody>
 				<Divider />
 				<Button
-					color="secondary"
+					color={status ? "secondary" : "danger"}
 					radius="full"
 					className="font-semibold text-sm p-6 mb-6 mt-6 mx-auto"
 					fullWidth
 					onPress={onOpen}
+					isDisabled={!status}
 				>
 					Cetak Tiket Elektronik
 				</Button>

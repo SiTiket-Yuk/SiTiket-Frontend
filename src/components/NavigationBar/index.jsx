@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import {
 	Avatar,
 	Dropdown,
@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/react";
 import LogoLight from "../../../public/logo/LogoLight.svg";
 import IconTicket from "../../../public/images/IconTicket.svg";
+import AvatarDefault from "../../../public/imageDefault/AvatarDefault.png";
 
 const NavigationBarSectionHyperLink = ({
 	pageName,
@@ -37,6 +38,21 @@ const NavigationBarSectionHyperLink = ({
 };
 
 const AuthenticatedUser = ({ avatar }) => {
+	const router = useRouter();
+	const handleLogout = async () => {
+		const res = await fetch("/api/delete-session", {
+			method: "DELETE",
+		});
+
+		if (!res.ok) {
+			console.error("Failed to delete session:", res.statusText);
+			return;
+		}
+
+		// Redirect to the login page
+		router.push("/login-page");
+	};
+
 	return (
 		<>
 			<div className="flex flex-row gap-5 items-center">
@@ -73,6 +89,13 @@ const AuthenticatedUser = ({ avatar }) => {
 						>
 							<div className="text-base">Pengaturan</div>
 						</DropdownItem>
+						<DropdownItem
+							key="logout"
+							onPress={handleLogout}
+							textValue="Keluar"
+						>
+							<div className="text-base">Keluar</div>
+						</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
 			</div>
@@ -95,7 +118,7 @@ const GuestUser = () => {
 	);
 };
 
-const NavigationBar = ({ userIsLoggedIn, userAvatar }) => {
+const NavigationBar = ({ isLoggedIn }) => {
 	const [activePage, setActivePage] = useState(-1);
 	const currentPathname = usePathname();
 
@@ -157,8 +180,8 @@ const NavigationBar = ({ userIsLoggedIn, userAvatar }) => {
 						/>
 					))}
 				</div>
-				{userIsLoggedIn ? (
-					<AuthenticatedUser avatar={userAvatar.src} />
+				{isLoggedIn ? (
+					<AuthenticatedUser avatar={AvatarDefault.src} />
 				) : (
 					<GuestUser />
 				)}

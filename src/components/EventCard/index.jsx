@@ -16,7 +16,6 @@ const EventCard = ({
 	cost,
 	organizerLogo,
 	organizerName,
-	style,
 }) => {
 	const formattedCost = cost.toLocaleString("id-ID");
 

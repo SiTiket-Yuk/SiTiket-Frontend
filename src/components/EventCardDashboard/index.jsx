@@ -21,7 +21,7 @@ const CardDashboard = ({
 						style={{
 							width: "350px",
 							height: "200px",
-							background: `url(${eventImg.src}) center/cover no-repeat`,
+							background: `url(${eventImg}) center/cover no-repeat`,
 							borderRadius: "10px",
 						}}
 					>

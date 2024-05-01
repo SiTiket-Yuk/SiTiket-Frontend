@@ -23,15 +23,8 @@ const CardPaymentDetail = ({
 	return (
 		<Card className="fullWidth p-4">
 			<CardBody>
-				<div
-					style={{
-						height: "180px",
-						background: `url(${eventImg.src}) center/cover no-repeat`,
-						borderRadius: "10px",
-						marginBottom: "16px",
-					}}
-				>
-					{" "}
+				<div>
+					<Image alt="${eventName}" src={eventImg} />
 				</div>
 				<div>
 					<p className="font-bold text-base pt-2 pb-2">{eventName}</p>
@@ -51,7 +44,7 @@ const CardPaymentDetail = ({
 			</CardBody>
 			<Divider />
 			<CardFooter className="flex gap-4">
-				<Avatar radius="full" size="sm" src={organizerLogo.src} />
+				<Avatar radius="full" size="sm" src={organizerLogo} />
 				<p className="text-sm">{organizerName}</p>
 			</CardFooter>
 		</Card>
