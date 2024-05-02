@@ -20,7 +20,7 @@ const EventCard = ({
 	const formattedCost = cost.toLocaleString("id-ID");
 
 	return (
-		<Card className="lg:w-[450px] md:w-[300px]">
+		<Card className="lg:w-[30rem] md:w-[20rem]">
 			<Link href={`/event-detail/${id}`}>
 				<CardBody className="p-5">
 					<Image src={image} alt={name} />

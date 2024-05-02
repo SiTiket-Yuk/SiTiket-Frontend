@@ -144,8 +144,6 @@ const EventTabs = ({ fetchedData }) => {
 		}
 	}, [fetchedData]);
 
-	console.log(fetchedData);
-
 	return (
 		<div className="grow">
 			<div
