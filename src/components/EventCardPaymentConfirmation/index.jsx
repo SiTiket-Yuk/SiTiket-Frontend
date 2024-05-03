@@ -25,22 +25,23 @@ const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
 const ModalBuySuccess = ({ isOpen, onOpenChange, eventId }) => {
 	const router = useRouter();
 
+	const ToEventDetail = () => {
+		router.push(`/event-detail/${eventId}`);
+		router.refresh();
+	};
+
 	return (
 		<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
 			<ModalContent className="p-8 text-sm">
 				<ModalHeader className="flex flex-col text-center font-bold text-xl">
 					Pembayaran berhasil!
 				</ModalHeader>
-				<ModalBody className="text-center">
+				<ModalBody className="flex justify-center items-center">
 					<Image alt={"Success Buy"} src={SuccessBuy} />
 				</ModalBody>
 				<ModalFooter className="flex flex-row justify-center">
-					<Button
-						radius="full"
-						color="secondary"
-						onPress={() => router.push(`/event-detail/${eventId}`)}
-					>
-						Cetak tiket elektronik
+					<Button radius="full" color="secondary" onPress={ToEventDetail}>
+						Lihat Tiket
 					</Button>
 				</ModalFooter>
 			</ModalContent>
@@ -189,11 +190,11 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 						/>
 
 						{/* jika status payment reminder == true (waktu pembayaran masih berlaku), tampilkan ini */}
-						{paymentReminder && (
+						{/*paymentReminder && (
 							<p className="text-sm pt-2 text-center text-neutral-300">
 								Selesaikan pembayaran sebelum {paymentDeadline}{" "}
 							</p>
-						)}
+						)*/}
 					</div>
 				</CardBody>
 				<CardFooter>
@@ -229,7 +230,7 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 			</Card>
 
 			{/* jika paymentconfirmation == true, tampilkan information message*/}
-			{paymentConfirmation && (
+			{/*paymentConfirmation && (
 				<InformationMsg
 					titleMsg={"Pemesanan tiket berhasil diproses!"}
 					bodyMsg={
@@ -237,7 +238,7 @@ const CardPaymentConfirmation = ({ uid, eventId, totalTix, tixPrice }) => {
 					}
 					onClose={handleCloseInformationMsg}
 				/>
-			)}
+			)*/}
 		</>
 	);
 };

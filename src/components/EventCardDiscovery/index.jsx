@@ -8,7 +8,7 @@ import {
 	Image,
 } from "@nextui-org/react";
 
-const EventCard = ({
+const EventCardDiscovery = ({
 	id,
 	image,
 	name,
@@ -20,17 +20,17 @@ const EventCard = ({
 	const formattedCost = cost.toLocaleString("id-ID");
 
 	return (
-		<Card className="lg:w-[30rem] md:w-[20rem]">
+		<Card className="lg:w-[16rem] ">
 			<Link href={`/event-detail/${id}`}>
-				<CardBody className="p-5">
+				<CardBody className="p-4">
 					<Image src={image} alt={name} />
 					<div>
-						<h3 className="py-5 font-medium text-xl">{name}</h3>
-						<h4 className="pb-3 text-base text-[#929292]">{date}</h4>
-						<h3 className="font-bold text-xl">Rp. {formattedCost}</h3>
+						<h3 className="pt-2 pb-2 font-semibold text-base">{name}</h3>
+						<h4 className="pb-6 text-sm text-[#929292]">{date}</h4>
+						<h3 className="font-semibold text-base">Rp. {formattedCost}</h3>
 					</div>
 				</CardBody>
-				<Divider />
+				<Divider/>
 				<CardFooter className="flex gap-4">
 					<Avatar radius="full" size="md" src={organizerLogo} />
 					<h4>{organizerName}</h4>
@@ -40,4 +40,4 @@ const EventCard = ({
 	);
 };
 
-export default EventCard;
+export default EventCardDiscovery;
