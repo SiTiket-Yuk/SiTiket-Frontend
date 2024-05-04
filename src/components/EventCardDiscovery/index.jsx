@@ -20,7 +20,7 @@ const EventCardDiscovery = ({
 	const formattedCost = cost.toLocaleString("id-ID");
 
 	return (
-		<Card className="lg:w-[16rem] ">
+		<Card className="lg:w-[16rem]">
 			<Link href={`/event-detail/${id}`}>
 				<CardBody className="p-4">
 					<Image src={image} alt={name} />
@@ -30,7 +30,7 @@ const EventCardDiscovery = ({
 						<h3 className="font-semibold text-base">Rp. {formattedCost}</h3>
 					</div>
 				</CardBody>
-				<Divider/>
+				<Divider />
 				<CardFooter className="flex gap-4">
 					<Avatar radius="full" size="md" src={organizerLogo} />
 					<h4>{organizerName}</h4>

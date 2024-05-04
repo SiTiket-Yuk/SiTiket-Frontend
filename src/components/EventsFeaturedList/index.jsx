@@ -4,25 +4,12 @@ import EventCard from "@/components/EventCard";
 const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
 
 const fetchEvents = async () => {
-	const events = [];
 	try {
 		const response = await axios.get(`${SITIKET_API}/api/event/featured`);
 		if (response.status === 200) {
 			const dataResponse = response.data.events;
-			for (const eventId in dataResponse) {
-				const eventAsset = await axios.get(
-					`${SITIKET_API}/api/image/asset/${eventId}`
-				);
-
-				dataResponse[eventId]["image"] = eventAsset.data.asset[0];
-				dataResponse[eventId]["logo"] = eventAsset.data.asset[1];
-				dataResponse[eventId]["eventId"] = eventId;
-
-				events.push(dataResponse[eventId]);
-			}
-			return events;
+			return dataResponse;
 		}
-
 		return [];
 	} catch (e) {
 		console.log("ERROR");
