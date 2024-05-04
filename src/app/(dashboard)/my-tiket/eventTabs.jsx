@@ -112,9 +112,10 @@ const EventTabs = ({ fetchedData }) => {
 	useEffect(() => {
 		const date = new Date().toJSON().slice(0, 10);
 		const currentDate = new Date(date);
-
+		console.log(fetchedData);
 		const fetchUserEvents = async () => {
 			for (const eventId in fetchedData) {
+				console.log(eventId);
 				if (fetchedData[eventId].status === "Lunas") {
 					const eventDate = new Date(fetchedData[eventId].timelimit);
 					if (currentDate > eventDate) {

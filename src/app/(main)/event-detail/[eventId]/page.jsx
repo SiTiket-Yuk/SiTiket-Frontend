@@ -45,21 +45,14 @@ const EventDetailPage = async ({ params }) => {
 
 			if (responseEvent.status === 200) {
 				const dataResponse = responseEvent.data.event;
-				const eventAsset = await axios.get(
-					`${SITIKET_API}/api/image/asset/${eventId}`
-				);
-				dataResponse["image"] = eventAsset.data.asset[0];
-				dataResponse["logo"] = eventAsset.data.asset[1];
 				fetchedData.eventData = dataResponse;
-
-				fetchedData.eventData.eventId = eventId;
 			}
 		}
 	} catch (e) {
 		console.log(e);
 		console.log("Error Fetching Data");
 	}
-
+	console.log(fetchedData);
 	return <EventDetail fetchedData={fetchedData} />;
 };
 

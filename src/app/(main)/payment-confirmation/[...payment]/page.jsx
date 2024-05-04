@@ -19,15 +19,7 @@ const PaymentDetail = async ({ params }) => {
 
 	if (response.status === 200) {
 		const dataResponse = response.data.event;
-		const eventAsset = await axios.get(
-			`${SITIKET_API}/api/image/asset/${eventId}`
-		);
-
-		dataResponse["image"] = eventAsset.data.asset[0];
-		dataResponse["logo"] = eventAsset.data.asset[1];
 		fetchedData.eventData = dataResponse;
-
-		fetchedData.eventData.eventId = eventId;
 	}
 
 	return (
