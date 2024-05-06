@@ -271,7 +271,7 @@ const RegisterForm = ({
 					passwordConfirm={passwordConfirm}
 					setPasswordConfirm={setPasswordConfirm}
 					type={"password"}
-					text={"password"}
+					text={"Konfirmasi password"}
 					passwordConfirmError={passwordConfirmError}
 					setPasswordConfirmError={setPasswordConfirmError}
 				/>
