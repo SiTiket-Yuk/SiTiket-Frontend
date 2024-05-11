@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import LogoDark from "../../../../public/logo/LogoDark.png";
-import Status from "../../../../public/logo/Status.svg";
-import HapusMerah from "../../../../public/logo/HapusMerah.svg";
-import LastEdit from "../../../../public/logo/LastEdit.svg";
-import EventImagePoster from "../../../../public/imageEventsPoster/PostCopywriting.png";
-import OrganizerImageLogo from "../../../../public/logo/LogoImpraktif.png";
-import AvatarDefault from "../../../../public/imageDefault/AvatarDefault.png";
+import Status from "../../../../../public/logo/Status.svg";
+import HapusMerah from "../../../../../public/logo/HapusMerah.svg";
+import LastEdit from "../../../../../public/logo/LastEdit.svg";
+import EventImagePoster from "../../../../../public/imageEventsPoster/PostCopywriting.png";
+import OrganizerImageLogo from "../../../../../public/logo/LogoImpraktif.png";
+import AvatarDefault from "../../../../../public/imageDefault/AvatarDefault.png";
 import {
   Avatar,
   DatePicker,
