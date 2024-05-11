@@ -8,27 +8,27 @@ import { getSession } from "../lib/session";
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "Dashboard",
+  title: "Dashboard",
 };
 
 const RootLayout = async ({ children }) => {
-	const session = await getSession();
-	if (session.userSession === undefined) {
-		redirect("/landing-page");
-	}
+  const session = await getSession();
+  if (session.userSession === undefined) {
+    redirect("/landing-page");
+  }
 
-	return (
-		<html lang="en">
-			<body className={dmSans.className}>
-				<Providers>
-					<div className="flex flex-row">
-						<SideNavigationBar />
-						{children}
-					</div>
-				</Providers>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className={dmSans.className}>
+        <Providers>
+          <div className="flex flex-row">
+            <SideNavigationBar />
+            {children}
+          </div>
+        </Providers>
+      </body>
+    </html>
+  );
 };
 
 export default RootLayout;
