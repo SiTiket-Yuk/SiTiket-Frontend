@@ -8,26 +8,26 @@ import AppBar from "@/components/AppBar";
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "Daftar Akun SiTiket",
+  title: "Daftar Akun SiTiket",
 };
 
 const RootLayout = async ({ children }) => {
-	const session = await getSession();
+  const session = await getSession();
 
-	if (session) {
-		redirect("/landing-page");
-	}
+  if (session) {
+    redirect("/landing-page");
+  }
 
-	return (
-		<html lang="en">
-			<body className={dmSans.className}>
-				<Providers>
-					<AppBar />
-					{children}
-				</Providers>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className={dmSans.className}>
+        <Providers>
+          <AppBar />
+          {children}
+        </Providers>
+      </body>
+    </html>
+  );
 };
 
 export default RootLayout;
