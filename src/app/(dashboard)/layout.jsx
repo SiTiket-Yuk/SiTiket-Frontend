@@ -13,7 +13,7 @@ export const metadata = {
 
 const RootLayout = async ({ children }) => {
   const session = await getSession();
-  if (session.userSession === undefined) {
+  if (session === null) {
     redirect("/landing-page");
   }
 

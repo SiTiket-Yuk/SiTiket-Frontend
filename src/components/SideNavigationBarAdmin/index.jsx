@@ -175,7 +175,7 @@ const SideNavigationBarAdmin = () => {
 
   return (
     <div
-      className="relative w-[344px] h-screen bg-[#0075B4]"
+      className="bg-primary px-16"
       style={{
         boxShadow: "0px 2px 6px 0px rgba(20, 20, 43, 0.06)",
       }}
