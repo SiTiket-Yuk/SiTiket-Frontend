@@ -1,11 +1,15 @@
 import { getSession } from "@/app/lib/session";
 import axios from "axios";
 import EventDetail from "./eventDetail";
+import { redirect } from "next/navigation";
 
 const SITIKET_API = process.env.NEXT_PUBLIC_SITIKET_API;
 
 const EventDetailPage = async ({ params }) => {
   const session = await getSession();
+  if (!session) {
+    redirect("/");
+  }
   const uid = session.userSession.uid;
 
   // Requested Event Detail

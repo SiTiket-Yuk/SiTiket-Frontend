@@ -162,7 +162,7 @@ const AddEvent = () => {
     const formData = new FormData();
 
     formData.append("name", judul);
-    formData.append("date", `${date.year}-${date.month}-${date.day}`);
+    formData.append("date", `${date.year}-${month}-${day}`);
     formData.append("price", harga);
     formData.append("description", deskripsi);
     formData.append("organizer", penyelenggara);
