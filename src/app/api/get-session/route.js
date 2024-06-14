@@ -9,5 +9,6 @@ export async function GET() {
   return NextResponse.json({
     status: 200,
     uid: session.userSession.uid,
+    isAdmin: session.userSession.isAdmin,
   });
 }

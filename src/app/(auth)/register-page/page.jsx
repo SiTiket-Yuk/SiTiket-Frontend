@@ -1,4 +1,5 @@
 "use client";
+
 import ImageHeroRegister from "../../../../public/images/ImageHeroRegister.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -355,7 +356,7 @@ const Register = () => {
         // CREATE: session
         const res = await fetch("/api/create-session", {
           method: "POST",
-          body: JSON.stringify({ userId: response.data.uid }),
+          body: JSON.stringify({ userId: response.data.uid, email: email }),
         });
         if (res.status === 200) {
           router.push("/landing-page");
